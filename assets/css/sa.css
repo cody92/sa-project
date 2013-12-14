@@ -1,6 +1,8 @@
 .custom-parameters {
-    width: 220px;
+    padding-left: 20px;
+    width: 240px;
     float: left;
+    border-left: 1px solid #ddd;
 }
 .inner {
     min-height: 500px;
@@ -16,11 +18,6 @@
 .left {
     text-align: left;
     float: left;
-}
-.raza {
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
 }
 .table-row .col-lg-4{
     padding: 0 !important;
