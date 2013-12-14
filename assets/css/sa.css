@@ -1,6 +1,6 @@
 .custom-parameters {
     padding-left: 20px;
-    width: 240px;
+    width: 22%;
     float: left;
     border-left: 1px solid #ddd;
 }
@@ -9,7 +9,7 @@
     padding: 10px;
 }
 .parameter {
-    width: 220px;
+    width: 22%;
     float: left;
 }
 .right {
@@ -19,6 +19,10 @@
     text-align: left;
     float: left;
 }
-.table-row .col-lg-4{
+.table-row .col-lg-10 {
+    padding: 0 !important;
+    padding-left: 3px !important;
+}
+.table-row input {
     padding: 0 !important;
 }
