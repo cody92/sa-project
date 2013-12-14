@@ -78,7 +78,7 @@
         <div id="content">
             <div class="outer">
                 <div class="inner">
-                    <form class="form-horizontal">
+                    <form class="form-horizontal" id="project-submit">
                         <div id="parameter" class="parameter">
 
                             <div class="form-group">
@@ -94,7 +94,7 @@
                                 <label class="col-lg-6 right" for="parametru_rata_estimari">Rata estimari:</label>
                                 <div class="col-lg-5 input-group">
 
-                                    <input type="text" name="reservation" id="parametru_rata_estimari" class="form-control" data-mask="99%" required>
+                                    <input type="text" name="reservation" id="parametru_rata_estimari" class="form-control"  required>
                                     <span class="input-group-addon">%</span>
 
                                 </div>
@@ -104,7 +104,7 @@
                                 <label class="col-lg-6 right" for="parametru_personal">Personal:</label>
                                 <div class="col-lg-5 input-group" >
 
-                                    <input type="text" name="reservation" id="parametru_personal" class="form-control" data-mask="99%" required>
+                                    <input type="text" name="reservation" id="parametru_personal" class="form-control"  required>
                                     <span class="input-group-addon">%</span>
 
                                 </div>
@@ -114,7 +114,7 @@
                                 <label class="col-lg-6 right" for="parametru_resurse_materiale">Resurse materiale:</label>
                                 <div class="col-lg-5 input-group">
 
-                                    <input type="text" name="reservation" id="parametru_resurse_materiale" class="form-control" data-mask="99%" required>
+                                    <input type="text" name="reservation" id="parametru_resurse_materiale" class="form-control"  required>
                                     <span class="input-group-addon">%</span>
                                 </div>
                             </div>
@@ -131,7 +131,7 @@
                                 </div>
                             </div>
                                 <div class="col-lg-11" id="select-parameters">
-                                    <select data-placeholder="Selecteaza Parametru" id="parameters" class="form-control chzn-select" tabindex="2" required>
+                                    <select name="select-parameters" data-placeholder="Selecteaza Parametru" id="parameters" class="form-control chzn-select" tabindex="2">
                                         <option value=""></option>
                                         <option value="parametru_rata_estimari">Rata estimari</option>
                                         <option value="parametru_personal">Fluctuatii personal</option>
@@ -226,7 +226,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-lg-11" id="select-output">
-                                    <select data-placeholder="Selecteaza Iesire" id="output" class="form-control chzn-select" tabindex="2" required>
+                                    <select data-placeholder="Selecteaza Iesire" id="output" class="form-control chzn-select" tabindex="2" >
                                         <option value=""></option>
                                         <option value="parametru_rata_estimari">Timp</option>
                                         <option value="parametru_personal">Cost</option>
@@ -260,7 +260,7 @@
     <script src="assets/lib/chosen/chosen.jquery.min.js"></script>
     <script src="assets/lib/colorpicker/js/bootstrap-colorpicker.js"></script>
     <script src="assets/lib/tagsinput/jquery.tagsinput.min.js"></script>
-    <script src="assets/lib/validVal/js/jquery.validVal.min.js"></script>
+    <script src="assets/lib/validVal/src/js/jquery.validVal.min.js"></script>
     <script src="assets/lib/daterangepicker/daterangepicker.js"></script>
     <script src="assets/lib/daterangepicker/moment.min.js"></script>
     <script src="assets/lib/datepicker/js/bootstrap-datepicker.js"></script>
