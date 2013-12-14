@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8">
     <title>Charts</title>
 
@@ -22,7 +23,18 @@
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/theme.css">
     <link rel="stylesheet" href="assets/lib/animate/animate.min.css">
-
+    <link rel="stylesheet" href="assets/css/sa.css">
+    <link rel="stylesheet" href="assets/lib/uniform/themes/default/css/uniform.default.css">
+    <link rel="stylesheet" href="assets/lib/inputlimiter/jquery.inputlimiter.1.0.css">
+    <link rel="stylesheet" href="assets/lib/chosen/chosen.min.css">
+    <link rel="stylesheet" href="assets/lib/colorpicker/css/colorpicker.css">
+    <link rel="stylesheet" href="assets/lib/tagsinput/jquery.tagsinput.css">
+    <link rel="stylesheet" href="assets/lib/daterangepicker/daterangepicker-bs3.css">
+    <link rel="stylesheet" href="assets/lib/datepicker/css/datepicker.css">
+    <link rel="stylesheet" href="assets/lib/timepicker/css/bootstrap-timepicker.min.css">
+    <link rel="stylesheet" href="assets/lib/switch/static/stylesheets/bootstrap-switch.css">
+    <link rel="stylesheet" href="assets/lib/jasny/css/jasny-bootstrap.min.css">
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/flick/jquery-ui.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -34,61 +46,96 @@
 
     <!--Modernizr 3.0-->
     <script src="assets/lib/modernizr-build.min.js"></script>
-  </head>
-  <body>
+</head>
+
+<body>
     <div id="wrap">
-      <div id="top">
+        <div id="top">
 
-        <!-- .navbar -->
-        <nav class="navbar navbar-inverse navbar-static-top">
+            <!-- .navbar -->
+            <nav class="navbar navbar-inverse navbar-static-top">
 
-          <!-- Brand and toggle get grouped for better mobile display -->
-          <header class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a href="index.html" class="navbar-brand">
-              <img src="assets/img/logo.png" alt="">
-            </a>
-          </header>
-          <div class="topnav">
-            
-          </div>
-        </nav><!-- /.navbar -->
-      </div><!-- /#top -->
-      
-      <div id="content">
-        <div class="outer">
-          <div class="inner">
-            
-          </div>
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <header class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="index.html" class="navbar-brand">
+                        <img src="assets/img/logo.png" alt="">
+                    </a>
+                </header>
+                <div class="topnav">
 
-          <!-- end .inner -->
+                </div>
+            </nav>
+            <!-- /.navbar -->
+        </div>
+        <!-- /#top -->
+
+        <div id="content">
+            <div class="outer">
+                <div class="inner">
+                    <div id="custom-parameters" class="custom-parameters">
+                        <div class="form-group">
+                            <div class="col-lg-11" id="select-parameters">
+                                <select data-placeholder="Selecteaza Parametru" id="parameters" class="form-control chzn-select" tabindex="2">
+                                    <option value=""></option>
+                                    <option value="parametru_rata_estimari">Rata estimari</option>
+                                    <option value="parametru_personal">Fluctuatii personal</option>
+                                    <option value="parametru_resurse_materiale">Resurse Materiale</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-11" id="select-output">
+                                <select data-placeholder="Selecteaza Iesire" id="output" class="form-control chzn-select" tabindex="2">
+                                    <option value=""></option>
+                                    <option value="parametru_rata_estimari">Timp</option>
+                                    <option value="parametru_personal">Cost</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- end .inner -->
         </div>
 
         <!-- end .outer -->
-      </div>
+    </div>
 
-      <!-- end #content -->
-    </div><!-- /#wrap -->
+    <!-- end #content -->
+    </div>
+    <!-- /#wrap -->
     <div id="footer">
-      <p>2013 &copy; Proiect - Analiza de senzitivitate</p>
+        <p>2013 &copy; Proiect - Analiza de senzitivitate</p>
     </div>
     <script src="assets/lib/jquery.min.js"></script>
     <script src="assets/lib/bootstrap/js/bootstrap.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-    <script src="assets/lib/flot/jquery.flot.js"></script>
-    <script src="assets/lib/flot/jquery.flot.pie.js"></script>
-    <script src="assets/lib/flot/jquery.flot.selection.js"></script>
-    <script src="assets/lib/flot/jquery.flot.resize.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script src="assets/lib/uniform/jquery.uniform.min.js"></script>
+    <script src="assets/lib/inputlimiter/jquery.inputlimiter.1.3.1.min.js"></script>
+    <script src="assets/lib/chosen/chosen.jquery.min.js"></script>
+    <script src="assets/lib/colorpicker/js/bootstrap-colorpicker.js"></script>
+    <script src="assets/lib/tagsinput/jquery.tagsinput.min.js"></script>
+    <script src="assets/lib/validVal/js/jquery.validVal.min.js"></script>
+    <script src="assets/lib/daterangepicker/daterangepicker.js"></script>
+    <script src="assets/lib/daterangepicker/moment.min.js"></script>
+    <script src="assets/lib/datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="assets/lib/timepicker/js/bootstrap-timepicker.min.js"></script>
+    <script src="assets/lib/switch/static/js/bootstrap-switch.min.js"></script>
+    <script src="assets/lib/jquery.dualListbox-1.3/jquery.dualListBox-1.3.min.js"></script>
+    <script src="assets/lib/autosize/jquery.autosize.min.js"></script>
+    <script src="assets/lib/jasny/js/jasny-bootstrap.min.js"></script>
     <script src="assets/js/main.min.js"></script>
     <script>
-      $(function() {
-        metisChart();
-      });
+        $(function() {
+            formGeneral();
+        });
     </script>
-  </body>
+
+</body>
+
 </html>
