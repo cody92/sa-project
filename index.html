@@ -85,9 +85,9 @@
                             <div class="form-group">
                                 <label class="col-lg-6 right color" for="nume_paramatru">Nume parametru</label>
                                 <div class="col-lg-5">
-                                    
-                                        <label class="col-lg-4 left color" for="pondere_parametru">Pondere</label>
-                                    
+
+                                    <label class="col-lg-4 left color" for="pondere_parametru">Pondere</label>
+
                                 </div>
                             </div>
 
@@ -95,7 +95,7 @@
                                 <label class="col-lg-6 right" for="parametru_rata_estimari">Rata estimari:</label>
                                 <div class="col-lg-5 input-group">
 
-                                    <input type="text" data-next = "1" name="parametru_rata_estimari" id="parametru_rata_estimari" class="validate[required,custom[number],min[1],max[99],funcCall[testSumaProcente]] form-control">
+                                    <input type="text" name="parametru_rata_estimari" id="parametru_rata_estimari" class="validate[required,custom[number],min[1],max[99],funcCall[testSumaProcente]] form-control">
                                     <span class="input-group-addon">%</span>
 
                                 </div>
@@ -103,7 +103,7 @@
                             <div class="form-group">
 
                                 <label class="col-lg-6 right" for="parametru_personal">Personal:</label>
-                                <div class="col-lg-5 input-group" >
+                                <div class="col-lg-5 input-group">
 
                                     <input type="text" name="parametru_personal" id="parametru_personal" class="validate[required,custom[number],min[1],max[99],funcCall[testSumaProcente]] form-control">
                                     <span class="input-group-addon">%</span>
@@ -124,20 +124,35 @@
                         <div id="custom-parameters" class="custom-parameters">
                             <div class="form-group">
                                 <div class="form-group">
-                                <label class="col-lg-6 right color" for="nume_paramatru">Variatia</label>
-                                <div class="col-lg-5">
-                                    <div>
-                                        <label class="col-lg-4 left color" for="pondere_parametru">Parametrilor</label>
+                                    <label class="col-lg-6 right color" for="nume_paramatru">Variatia</label>
+                                    <div class="col-lg-5">
+                                        <div>
+                                            <label class="col-lg-4 left color" for="pondere_parametru">Parametrilor</label>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                                 <div class="col-lg-11" id="select-parameters">
-                                    <select name="select-parameters" data-placeholder="Selecteaza Parametru" id="parameters" class="form-control chzn-select" tabindex="2">
-                                        <option value=""></option>
+                                    <select name="select-parameters" data-placeholder="Selecteaza Parametru" id="parameters" class=" form-control chzn-select" tabindex="2">
                                         <option value="parametru_rata_estimari">Rata estimari</option>
                                         <option value="parametru_personal">Fluctuatii personal</option>
                                         <option value="parametru_resurse_materiale">Resurse Materiale</option>
                                     </select>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="control-label col-lg-6">Timp stabilit:</label>
+                                <div class="col-lg-6 input-group">
+                                    <input class="validate[required,custom[number],min[1]] form-control" type="text" id="timp_stabilit">
+                                    <span class="input-group-addon">zile</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-lg-6">Cost stabilit:</label>
+                                <div class="col-lg-6 input-group">
+                                    <input class="validate[required,custom[number],min[1]] form-control" type="text" id="cost_stabilit">
+                                    <span class="input-group-addon">Lei</span>
                                 </div>
                             </div>
 
@@ -148,32 +163,32 @@
                                         <td>
 
                                             <div class="col-lg-10">
-                                                <input class="validate[required,custom[number],min[1]] form-control" type="text" id="timp_1" placeholder="Timp">
+                                                <input data-prev="0" class="validate[required,custom[number],min[1],funcCall[verificareTimpMaxim]] form-control" type="text" id="timp_1" placeholder="Timp">
                                             </div>
                                         </td>
                                         <td>
                                             <div class="col-lg-10">
-                                                <input class="validate[custom[number],min[1]] form-control" type="text" id="timp_2" placeholder="Timp">
+                                                <input data-prev="1" class="validate[custom[number],min[1],funcCall[verificareTimpMaxim],funcCall[verificarePerioadaTimp]] form-control" type="text" id="timp_2" placeholder="Timp">
                                             </div>
                                         </td>
                                         <td>
                                             <div class="col-lg-10">
-                                                <input class="validate[custom[number],min[1]] form-control" type="text" id="timp_3" placeholder="Timp">
+                                                <input data-prev="2" class="validate[custom[number],min[1],funcCall[verificareTimpMaxim],funcCall[verificarePerioadaTimp]] form-control" type="text" id="timp_3" placeholder="Timp">
                                             </div>
                                         </td>
                                         <td>
                                             <div class="col-lg-10">
-                                                <input class="validate[custom[number],min[1]] form-control" type="text" id="timp_4" placeholder="Timp">
+                                                <input data-prev="3" class="validate[custom[number],min[1],funcCall[verificareTimpMaxim],funcCall[verificarePerioadaTimp]] form-control" type="text" id="timp_4" placeholder="Timp">
                                             </div>
                                         </td>
                                         <td>
                                             <div class="col-lg-10">
-                                                <input class="validate[custom[number],min[1]] form-control" type="text" id="timp_5" placeholder="Timp">
+                                                <input data-prev="4" class="validate[custom[number],min[1],funcCall[verificareTimpMaxim],funcCall[verificarePerioadaTimp]] form-control" type="text" id="timp_5" placeholder="Timp">
                                             </div>
                                         </td>
                                         <td>
                                             <div class="col-lg-10">
-                                                <input class="validate[custom[number],min[1]] form-control" type="text" id="timp_6" placeholder="Timp">
+                                                <input data-prev="5" class="validate[custom[number],min[1],funcCall[verificareTimpMaxim],funcCall[verificarePerioadaTimp]] form-control" type="text" id="timp_6" placeholder="Timp">
                                             </div>
                                         </td>
                                     </tr>
@@ -211,24 +226,10 @@
                                     </tr>
                                 </table>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label col-lg-6">Timp stabilit:</label>
-                                <div class="col-lg-6 input-group">
-                                    <input class="validate[required,custom[number],min[1]] form-control" type="text" id="timp_stabilit" >
-                                    <span class="input-group-addon">zile</span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-lg-6">Cost stabilit:</label>
-                                <div class="col-lg-6 input-group">
-                                    <input class="validate[required,custom[number],min[1]] form-control" type="text" id="cost_stabilit" >
-                                    <span class="input-group-addon">Lei</span>
-                                </div>
-                            </div>
+
                             <div class="form-group">
                                 <div class="col-lg-11" id="select-output">
-                                    <select data-placeholder="Selecteaza Iesire" id="output" class="form-control chzn-select" tabindex="2" >
-                                        <option value=""></option>
+                                    <select data-placeholder="Selecteaza Iesire" id="output" class="form-control chzn-select" tabindex="2">
                                         <option value="parametru_rata_estimari">Timp</option>
                                         <option value="parametru_personal">Cost</option>
                                     </select>
@@ -276,7 +277,7 @@
     <script src="assets/lib/jquery-validation-1.11.1/localization/messages_ja.js"></script>
     <script src="assets/js/sa.js"></script>
     <script src="assets/js/main.js"></script>
-    
+
     <script>
         $(function() {
             formGeneral();
