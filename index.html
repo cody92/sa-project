@@ -84,29 +84,31 @@
 
 
                             <div class="form-group">
-                                <label class="col-lg-7 right" for="parametru_rata_estimari">Rata estimari:</label>
-                                <div class="col-lg-4">
-                                    <div>
-                                        <input type="text" name="reservation" id="parametru_rata_estimari" class="form-control">
-                                    </div>
+                                <label class="col-lg-6 right" for="parametru_rata_estimari">Rata estimari:</label>
+                                <div class="col-lg-5 input-group">
+
+                                    <input type="text" name="reservation" id="parametru_rata_estimari" class="form-control" data-mask="99%" required>
+                                    <span class="input-group-addon">%</span>
+
                                 </div>
                             </div>
                             <div class="form-group">
 
-                                <label class="col-lg-7 right" for="parametru_personal">Personal:</label>
-                                <div class="col-lg-4">
-                                    <div>
-                                        <input type="text" name="reservation" id="parametru_personal" class="form-control">
-                                    </div>
+                                <label class="col-lg-6 right" for="parametru_personal">Personal:</label>
+                                <div class="col-lg-5 input-group" >
+
+                                    <input type="text" name="reservation" id="parametru_personal" class="form-control" data-mask="99%" required>
+                                    <span class="input-group-addon">%</span>
+
                                 </div>
                             </div>
                             <div class="form-group">
 
-                                <label class="col-lg-7 right" for="parametru_resurse_materiale">Resurse materiale:</label>
-                                <div class="col-lg-4">
-                                    <div>
-                                        <input type="text" name="reservation" id="parametru_resurse_materiale" class="form-control">
-                                    </div>
+                                <label class="col-lg-6 right" for="parametru_resurse_materiale">Resurse materiale:</label>
+                                <div class="col-lg-5 input-group">
+
+                                    <input type="text" name="reservation" id="parametru_resurse_materiale" class="form-control" data-mask="99%" required>
+                                    <span class="input-group-addon">%</span>
                                 </div>
                             </div>
 
@@ -114,7 +116,7 @@
                         <div id="custom-parameters" class="custom-parameters">
                             <div class="form-group">
                                 <div class="col-lg-11" id="select-parameters">
-                                    <select data-placeholder="Selecteaza Parametru" id="parameters" class="form-control chzn-select" tabindex="2">
+                                    <select data-placeholder="Selecteaza Parametru" id="parameters" class="form-control chzn-select" tabindex="2" required>
                                         <option value=""></option>
                                         <option value="parametru_rata_estimari">Rata estimari</option>
                                         <option value="parametru_personal">Fluctuatii personal</option>
@@ -130,59 +132,59 @@
                                         <td>
 
                                             <div class="col-lg-10">
-                                                <input class="form-control" type="text" id="timp_1">
+                                                <input class="form-control" type="text" id="timp_1" required>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="col-lg-10">
-                                                <input class="form-control" type="text" id="timp_2">
+                                                <input class="form-control" type="text" id="timp_2" >
                                             </div>
                                         </td>
                                         <td>
                                             <div class="col-lg-10">
-                                                <input class="form-control" type="text" id="timp_3">
+                                                <input class="form-control" type="text" id="timp_3" >
                                             </div>
                                         </td>
                                         <td>
                                             <div class="col-lg-10">
-                                                <input class="form-control" type="text" id="timp_4">
+                                                <input class="form-control" type="text" id="timp_4" >
                                             </div>
                                         </td>
                                         <td>
                                             <div class="col-lg-10">
-                                                <input class="form-control" type="text" id="timp_5">
+                                                <input class="form-control" type="text" id="timp_5" >
                                             </div>
                                         </td>
                                         <td>
                                             <div class="col-lg-10">
-                                                <input class="form-control" type="text" id="timp_6">
+                                                <input class="form-control" type="text" id="timp_6" >
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <div class="col-lg-10">
-                                                <input class="form-control" type="text" id="procent_1">
+                                                <input class="form-control" type="text" id="procent_1" required>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="col-lg-10">
-                                                <input class="form-control" type="text" id="procent_2">
+                                                <input class="form-control" type="text" id="procent_2" >
                                             </div>
                                         </td>
                                         <td>
                                             <div class="col-lg-10">
-                                                <input class="form-control" type="text" id="procent_3">
+                                                <input class="form-control" type="text" id="procent_3" >
                                             </div>
                                         </td>
                                         <td>
                                             <div class="col-lg-10">
-                                                <input class="form-control" type="text" id="procent_4">
+                                                <input class="form-control" type="text" id="procent_4" >
                                             </div>
                                         </td>
                                         <td>
                                             <div class="col-lg-10">
-                                                <input class="form-control" type="text" id="procent_5">
+                                                <input class="form-control" type="text" id="procent_5" >
                                             </div>
                                         </td>
                                         <td>
@@ -195,19 +197,21 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-lg-6">Timp stabilit:</label>
-                                <div class="col-lg-4">
-                                    <input class="form-control" type="text" id="timp_stabilit">
+                                <div class="col-lg-6 input-group">
+                                    <input class="form-control" type="text" id="timp_stabilit" required>
+                                    <span class="input-group-addon">zile</span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-lg-6">Cost stabilit:</label>
-                                <div class="col-lg-4">
-                                    <input class="form-control" type="text" id="cost_stabilit">
+                                <div class="col-lg-6 input-group">
+                                    <input class="form-control" type="text" id="cost_stabilit" required>
+                                    <span class="input-group-addon">Lei</span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-lg-11" id="select-output">
-                                    <select data-placeholder="Selecteaza Iesire" id="output" class="form-control chzn-select" tabindex="2">
+                                    <select data-placeholder="Selecteaza Iesire" id="output" class="form-control chzn-select" tabindex="2" required>
                                         <option value=""></option>
                                         <option value="parametru_rata_estimari">Timp</option>
                                         <option value="parametru_personal">Cost</option>
@@ -215,7 +219,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <button class="btn btn-success btn-line" data-original-title="" title="" value="Simulare" >Simulare</button>
+                                <button class="btn btn-success btn-line" data-original-title="" title="" value="Simulare">Simulare</button>
                             </div>
                         </div>
                     </form>
