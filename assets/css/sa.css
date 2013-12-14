@@ -1,6 +1,19 @@
 .custom-parameters {
     width: 220px;
+    float: left;
 }
 .inner {
     min-height: 250px;
+    padding: 10px;
+}
+.parameter {
+    width: 220px;
+    float: left;
+}
+.right {
+    text-align: right;
+}
+.left {
+    text-align: left;
+    float: left;
 }
