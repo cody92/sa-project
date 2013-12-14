@@ -78,10 +78,11 @@
         <div id="content">
             <div class="outer">
                 <div class="inner">
-                    <div id="parameter">
+                    <form class="form-horizontal">
+                        <div id="parameter">
 
 
-                        <form class="form-horizontal">
+
                             <div class="form-group">
                                 <label class="control-label col-lg-4" for="parametru_rata_estimari">Rata estimari:</label>
                                 <div class="col-lg-4">
@@ -106,28 +107,49 @@
                                     </div>
                                 </div>
                             </div>
-                        </form>
 
-                    </div>
-                    <div id="custom-parameters" class="custom-parameters">
-                        <div class="form-group">
-                            <div class="col-lg-11" id="select-parameters">
-                                <select data-placeholder="Selecteaza Parametru" id="parameters" class="form-control chzn-select" tabindex="2">
-                                    <option value=""></option>
-                                    <option value="parametru_rata_estimari">Rata estimari</option>
-                                    <option value="parametru_personal">Fluctuatii personal</option>
-                                    <option value="parametru_resurse_materiale">Resurse Materiale</option>
-                                </select>
+
+                        </div>
+                        <div id="custom-parameters" class="custom-parameters">
+                            <div class="form-group">
+                                <div class="col-lg-11" id="select-parameters">
+                                    <select data-placeholder="Selecteaza Parametru" id="parameters" class="form-control chzn-select" tabindex="2">
+                                        <option value=""></option>
+                                        <option value="parametru_rata_estimari">Rata estimari</option>
+                                        <option value="parametru_personal">Fluctuatii personal</option>
+                                        <option value="parametru_resurse_materiale">Resurse Materiale</option>
+                                    </select>
+                                </div>
                             </div>
-                            <div class="col-lg-11" id="select-output">
-                                <select data-placeholder="Selecteaza Iesire" id="output" class="form-control chzn-select" tabindex="2">
-                                    <option value=""></option>
-                                    <option value="parametru_rata_estimari">Timp</option>
-                                    <option value="parametru_personal">Cost</option>
-                                </select>
+                            <div class="form-group">
+                                <label class="control-label col-lg-6">Timp stabilit:</label>
+                                <div class="col-lg-4">
+                                    <input class="form-control" type="text" id="timp_stabilit">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-lg-6">Timp stabilit:</label>
+                                <div class="col-lg-4">
+                                    <input class="form-control" type="text" id="timp_stabilit">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-lg-6">Cost stabilit:</label>
+                                <div class="col-lg-4">
+                                    <input class="form-control" type="text" id="cost_stabilit">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-11" id="select-output">
+                                    <select data-placeholder="Selecteaza Iesire" id="output" class="form-control chzn-select" tabindex="2">
+                                        <option value=""></option>
+                                        <option value="parametru_rata_estimari">Timp</option>
+                                        <option value="parametru_personal">Cost</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
 
                 <!-- end .inner -->
@@ -161,11 +183,12 @@
     <script src="assets/lib/jasny/js/jasny-bootstrap.min.js"></script>
     <script src="assets/js/main.min.js"></script>
     <script>
-          $(function() {
+        $(function() {
             formGeneral();
         });
     </script>
 
 
 </body>
+
 </html>
