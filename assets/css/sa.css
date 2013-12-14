@@ -26,6 +26,9 @@
 .table-row input {
     padding: 0 !important;
 }
-.color{
+.color {
     color: #6e6e6e;
+}
+.logo {
+    padding: 10px;
 }
