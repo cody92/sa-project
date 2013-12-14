@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8">
     <title>Charts</title>
 
@@ -34,48 +35,81 @@
 
     <!--Modernizr 3.0-->
     <script src="assets/lib/modernizr-build.min.js"></script>
-  </head>
-  <body>
+</head>
+
+<body>
     <div id="wrap">
-      <div id="top">
+        <div id="top">
 
-        <!-- .navbar -->
-        <nav class="navbar navbar-inverse navbar-static-top">
+            <!-- .navbar -->
+            <nav class="navbar navbar-inverse navbar-static-top">
 
-          <!-- Brand and toggle get grouped for better mobile display -->
-          <header class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a href="index.html" class="navbar-brand">
-              <img src="assets/img/logo.png" alt="">
-            </a>
-          </header>
-          <div class="topnav">
-            
-          </div>
-        </nav><!-- /.navbar -->
-      </div><!-- /#top -->
-      
-      <div id="content">
-        <div class="outer">
-          <div class="inner">
-            
-          </div>
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <header class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="index.html" class="navbar-brand">
+                        <img src="assets/img/logo.png" alt="">
+                    </a>
+                </header>
+                <div class="topnav">
 
-          <!-- end .inner -->
+                </div>
+            </nav>
+            <!-- /.navbar -->
+        </div>
+        <!-- /#top -->
+
+        <div id="content">
+            <div class="outer">
+                <div class="inner">
+                    <div id="parameter">
+
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-lg-4" for="parametru_rata_estimari">Rata estimari:</label>
+                                <div class="col-lg-4">
+                                    <div class="input-group">
+                                        <input type="text" name="reservation" id="parametru_rata_estimari" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-lg-4" for="parametru_personal">Personal:</label>
+                                <div class="col-lg-4">
+                                    <div class="input-group">
+                                        <input type="text" name="reservation" id="parametru_personal" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-lg-4" for="parametru_resurse_materiale">Resurse materiale:</label>
+                                <div class="col-lg-4">
+                                    <div class="input-group">
+                                        <input type="text" name="reservation" id="parametru_resurse_materiale" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+                <!-- end .inner -->
+            </div>
+
+            <!-- end .outer -->
         </div>
 
-        <!-- end .outer -->
-      </div>
-
-      <!-- end #content -->
-    </div><!-- /#wrap -->
+        <!-- end #content -->
+    </div>
+    <!-- /#wrap -->
     <div id="footer">
-      <p>2013 &copy; Proiect - Analiza de senzitivitate</p>
+        <p>2013 &copy; Proiect - Analiza de senzitivitate</p>
     </div>
     <script src="assets/lib/jquery.min.js"></script>
     <script src="assets/lib/bootstrap/js/bootstrap.min.js"></script>
@@ -86,9 +120,10 @@
     <script src="assets/lib/flot/jquery.flot.resize.js"></script>
     <script src="assets/js/main.min.js"></script>
     <script>
-      $(function() {
-        metisChart();
-      });
+        $(function() {
+            metisChart();
+        });
     </script>
-  </body>
+</body>
+
 </html>
