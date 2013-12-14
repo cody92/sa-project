@@ -3,7 +3,7 @@
     float: left;
 }
 .inner {
-    min-height: 250px;
+    min-height: 500px;
     padding: 10px;
 }
 .parameter {
@@ -21,4 +21,7 @@
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
+}
+.table-row .col-lg-4{
+    padding: 0 !important;
 }
