@@ -32,3 +32,7 @@
 .logo {
     padding: 10px;
 }
+.generate-chart {
+    width: 50%;
+    float: right;
+}
