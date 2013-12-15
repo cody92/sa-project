@@ -11,9 +11,10 @@ function testSumaProcente(field, rules, i, options) {
     param_1 = parseInt(param_1);
     param_2 = parseInt(param_2);
     param_3 = parseInt(param_3);
-    if (param_1 + param_2 + param_3 > param_max_sum) {
-        return 'Suma procentelor nu poate fi mai mare decat 100!';
-    }
+    if (param_1 != 0 && param_2 != 0 && param_3 != 0)
+        if (param_1 + param_2 + param_3 != param_max_sum) {
+            return 'Suma procentelor trebuie sa fie 100!';
+        }
 }
 
 function verificareTimpMaxim(field, rules, i, options) {
@@ -48,6 +49,28 @@ function verificarePerioadaTimp(field, rules, i, options) {
         return 'Aceasta valoare trebuie sa fie mai mare decat: ' + prevTime;
     }
 }
+
+function verificareCompletare(field, rules, i, options) {
+    "use strict";
+    var data_next = field.attr('data-next');
+    var time = field.val();
+    var i = parseInt(data_next);
+    i = i - 1;
+    /*if ($("#timp_" + i).attr('disabled') == "true")
+        $("#timp_" + data_next).attr({
+            'disabled': true
+        });*/
+    if (time != "")
+        $("#timp_" + data_next).attr({
+            'disabled': false
+        });
+    else if (time == "" || $("#timp_" + i).attr('disabled') == "true")
+        $("#timp_" + data_next).attr({
+            'disabled': true
+        });
+    return i;
+}
+
 
 function generateNewChart() {
     "use strict";
