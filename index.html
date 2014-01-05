@@ -81,45 +81,12 @@
             <div class="outer">
                 <div class="inner">
                     <form class="form-horizontal" id="project-submit">
-                        <div id="parameter" class="parameter">
-
-                            <div class="form-group">
-                                <label class="col-lg-6 right color" for="nume_paramatru">Nume parametru</label>
-                                <div class="col-lg-5">
-
-                                    <label class="col-lg-4 left color" for="pondere_parametru">Pondere</label>
-
-                                </div>
+                        <div id="parameter_first" class="parameter">
+                            <div id="parameter">
+                            </div>
+                            <div id="parameter_btn">
                             </div>
 
-                            <div class="form-group">
-                                <label class="col-lg-6 right" for="parametru_rata_estimari">Rata estimari:</label>
-                                <div class="col-lg-5 input-group">
-
-                                    <input type="text" name="parametru_rata_estimari" id="parametru_rata_estimari" class="validate[required,custom[number],min[1],max[99],funcCall[testSumaProcente]] form-control">
-                                    <span class="input-group-addon">%</span>
-
-                                </div>
-                            </div>
-                            <div class="form-group">
-
-                                <label class="col-lg-6 right" for="parametru_personal">Personal:</label>
-                                <div class="col-lg-5 input-group">
-
-                                    <input type="text" name="parametru_personal" id="parametru_personal" class="validate[required,custom[number],min[1],max[99],funcCall[testSumaProcente]] form-control">
-                                    <span class="input-group-addon">%</span>
-
-                                </div>
-                            </div>
-                            <div class="form-group">
-
-                                <label class="col-lg-6 right" for="parametru_resurse_materiale">Resurse materiale:</label>
-                                <div class="col-lg-5 input-group">
-
-                                    <input type="text" name="parametru_resurse_materiale" id="parametru_resurse_materiale" class="validate[required,custom[number],min[1],max[99],funcCall[testSumaProcente]] form-control">
-                                    <span class="input-group-addon">%</span>
-                                </div>
-                            </div>
 
                         </div>
                         <div id="custom-parameters" class="custom-parameters">
@@ -133,10 +100,8 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-11" id="select-parameters">
-                                    <select name="select-parameters" data-placeholder="Selecteaza Parametru" id="parameters" class=" form-control chzn-select" tabindex="2">
-                                        <option value="parametru_rata_estimari">Rata estimari</option>
-                                        <option value="parametru_personal">Fluctuatii personal</option>
-                                        <option value="parametru_resurse_materiale">Resurse Materiale</option>
+                                    <select name="select-parameters" data-placeholder="Selecteaza Parametru" id="parameters" class="form-control chzn-select" tabindex="2">
+
                                     </select>
                                 </div>
                             </div>
@@ -157,71 +122,23 @@
                                 </div>
                             </div>
 
-
+                            <div class="form-group">
+                                <a class='btn btn-mini btn-success' onclick="addNewTimeField()" >Adauga camp nou</a>
+                            </div>
                             <div class="form-group">
                                 <table class="table-row">
-                                    <tr>
+                                    <tr id="time_input">
                                         <td>
 
                                             <div class="col-lg-10">
-                                                <input data-prev="0" data-next="2" class="validate[required,custom[number],min[1],funcCall[verificareTimpMaxim],funcCall[verificareCompletare]] form-control" type="text" id="timp_1" placeholder="Timp">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="col-lg-10">
-                                                <input data-prev="1" data-next="3" class="validate[custom[number],min[1],funcCall[verificareTimpMaxim],funcCall[verificarePerioadaTimp],funcCall[verificareCompletare]] form-control" type="text" id="timp_2" placeholder="Timp" disabled>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="col-lg-10">
-                                                <input data-prev="2" data-next="4" class="validate[custom[number],min[1],funcCall[verificareTimpMaxim],funcCall[verificarePerioadaTimp],funcCall[verificareCompletare]] form-control" type="text" id="timp_3" placeholder="Timp" disabled>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="col-lg-10">
-                                                <input data-prev="3" data-next="5" class="validate[custom[number],min[1],funcCall[verificareTimpMaxim],funcCall[verificarePerioadaTimp],funcCall[verificareCompletare]] form-control" type="text" id="timp_4" placeholder="Timp" disabled>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="col-lg-10">
-                                                <input data-prev="4" data-next="6" class="validate[custom[number],min[1],funcCall[verificareTimpMaxim],funcCall[verificarePerioadaTimp],funcCall[verificareCompletare]] form-control" type="text" id="timp_5" placeholder="Timp" disabled>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="col-lg-10">
-                                                <input data-prev="5" class="validate[custom[number],min[1],funcCall[verificareTimpMaxim],funcCall[verificarePerioadaTimp]] form-control" type="text" id="timp_6" placeholder="Timp" disabled>
+                                                <input data-prev="0" data-next="2" class="validate[required,custom[number],min[1],funcCall[verificareTimpMaxim],funcCall[verificareCompletare]] form-control" type="text" id="time_1" placeholder="Timp">
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr id="percent_input">
                                         <td>
                                             <div class="col-lg-10">
-                                                <input class="validate[required,custom[number],min[0],max[200]] form-control" type="text" id="procent_1" placeholder="%">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="col-lg-10">
-                                                <input class="validate[custom[number],min[0],max[200]] form-control" type="text" id="procent_2" placeholder="%">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="col-lg-10">
-                                                <input class="validate[custom[number],min[0],max[200]] form-control" type="text" id="procent_3" placeholder="%">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="col-lg-10">
-                                                <input class="validate[custom[number],min[0],max[200]] form-control" type="text" id="procent_4" placeholder="%">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="col-lg-10">
-                                                <input class="validate[custom[number],min[0],max[200]] form-control" type="text" id="procent_5" placeholder="%">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="col-lg-10">
-                                                <input class="validate[custom[number],min[0],max[200]] form-control" type="text" id="procent_6" placeholder="%">
+                                                <input class="validate[required,custom[number],min[0],max[200]] form-control" type="text" id="percent_1" placeholder="%">
                                             </div>
                                         </td>
                                     </tr>
@@ -231,8 +148,7 @@
                             <div class="form-group">
                                 <div class="col-lg-11" id="select-output">
                                     <select data-placeholder="Selecteaza Iesire" id="output" class="form-control chzn-select" tabindex="2">
-                                        <option value="iesire_timp">Timp</option>
-                                        <option value="iesire_cost">Cost</option>
+
                                     </select>
                                 </div>
                             </div>
@@ -263,7 +179,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
     <script src="assets/lib/uniform/jquery.uniform.min.js"></script>
     <script src="assets/lib/inputlimiter/jquery.inputlimiter.1.3.1.min.js"></script>
-    <script src="assets/lib/chosen/chosen.jquery.min.js"></script>
+    <script src="assets/lib/chosen/chosen.jquery.js"></script>
     <script src="assets/lib/colorpicker/js/bootstrap-colorpicker.js"></script>
     <script src="assets/lib/tagsinput/jquery.tagsinput.min.js"></script>
     <script src="assets/lib/validVal/src/js/jquery.validVal.min.js"></script>
@@ -290,6 +206,7 @@
 
     <script>
         $(function() {
+            generateInputsFields();
             formGeneral();
             formValidation();
         });

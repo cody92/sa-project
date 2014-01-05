@@ -1,18 +1,107 @@
+var globalInputs = [
+    'Rata estimari',
+    'Rata fluctuatii personal',
+    'Resurse materiale'
+];
+
+var globalOutputs = [
+    'Timp',
+    'Cost'
+    ];
+
+var parametersPercent = [];
+var coeficients = [];
+var timeChanges = [];
+
+var globalTimeFields = [1];
+
+function addNewTimeField() {
+    var position = globalTimeFields.length + 1;
+    globalTimeFields.push(position);
+
+    var content1 = "<td><div class='col-lg-10'><input data-prev='" + (position - 1) + "' data-next='" + (position + 1) + "' class='validate[required,custom[number],min[1],funcCall[verificareTimpMaxim],funcCall[verificareCompletare]] form-control' type='text' id='time_" + (position) + "' placeholder='Timp'></div></td>";
+    $("#time_input").append(content1);
+    var content2 = "<td><div class='col-lg-10'><input data-prev='" + (position - 1) + "' data-next='" + (position + 1) + "' class='validate[required,custom[number],min[0],max[200]] form-control' type='text' id='percent_" + (position) + "' placeholder='%'></div></td>";
+    $("#percent_input").append(content2);
+}
+
+
+function generateInputsFields() {
+    var i = 1;
+    generateNewParameterButton();
+    globalInputs.forEach(function (input) {
+        renderInput(i, input);
+        renderSelect(i++, input);
+    });
+    i = 1;
+    globalOutputs.forEach(function (label) {
+        renderOutputSelect(i++, label);
+    });
+    renderInputTitle();
+
+}
+
+function renderInput(position, label) {
+    var content = "<div class='form-group'><label class='col-lg-6 right' for='parametru_" + position + "'>" + label + ":</label>                <div class='col-lg-5 input-group'><input type='text' name='parametru_" + position + "' id='parametru_" + position + "' class='validate[required,custom[number],min[1],max[99],funcCall[testSumaProcente]] form-control'><span class='input-group-addon'>%</span></div></div>";
+    $('#parameter').append(content);
+}
+
+function renderInputTitle() {
+    var content = "<div class='form-group'><label class='col-lg-6 right color' for='nume_paramatru'>Nume parametru</label>                                <div class='col-lg-5'><label class='col-lg-4 left color' for='pondere_parametru'>Pondere</label></div></div>";
+    $('#parameter_first').prepend(content);
+}
+
+function renderSelect(position, label) {
+    var content = "<option value='" + position + "'>" + label + "</option>";
+    $("#parameters").append(content);
+}
+
+function renderOutputSelect(position, label) {
+    var content = "<option value='" + position + "'>" + label + "</option>";
+    $("#output").append(content);
+}
+
+function renderOptionSelectInput(position, label) {
+    $(".chzn-select").trigger("chosen:updated");
+
+}
+
+function generateNewParameterButton() {
+    var content = "<div class='form-group' id ='prepend'><div class='col-lg-5 input-group'> <a onclick='addNewParameter(this)'    class='btn btn-success' data-original-title='' title='' value='Adauga paramentru nou '>Adauga paramentru nou</a></div></div><div class='form-group'><div class='col-lg-10 input-group'><input class='form-control' placeholder='Nume parametru' type='text' id='new_parameter' /></div></div>";
+    $('#parameter_btn').append(content);
+}
+
+function addNewParameter(input) {
+    var new_parameter = $('#new_parameter ').val();
+    if (!new_parameter) {
+        alert('Completeaza numele noului parametru ');
+        return false;
+    }
+    globalInputs.push(new_parameter);
+    renderInput(globalInputs.length, new_parameter);
+    renderSelect(globalInputs.length, new_parameter);
+    renderOptionSelectInput(globalInputs.length, new_parameter);
+    $('#new_parameter ').val('');
+    return false;
+}
+
+
 function testSumaProcente(field, rules, i, options) {
     "use strict";
     var param_max_sum = 100;
-    var param_1 = $("#parametru_rata_estimari").val();
-    var param_2 = $("#parametru_personal").val();
-    var param_3 = $("#parametru_resurse_materiale").val();
-    param_1 = param_1 ? param_1 : 0;
-    param_2 = param_2 ? param_2 : 0;
-    param_3 = param_3 ? param_3 : 0;
-
-    param_1 = parseInt(param_1);
-    param_2 = parseInt(param_2);
-    param_3 = parseInt(param_3);
-    if (param_1 != 0 && param_2 != 0 && param_3 != 0)
-        if (param_1 + param_2 + param_3 != param_max_sum) {
+    var result = 0;
+    var ok = true;
+    for (var i = 1; i <= globalInputs.length; i++) {
+        var partial = parseInput("parametru_" + i);
+        if (!partial) {
+            ok = false;
+            break;
+        } else {
+            result += partial;
+        }
+    }
+    if (ok)
+        if (result != param_max_sum) {
             return 'Suma procentelor trebuie sa fie 100!';
         }
 }
@@ -36,8 +125,8 @@ function verificareTimpMaxim(field, rules, i, options) {
 
 function verificarePerioadaTimp(field, rules, i, options) {
     "use strict";
-    var data_prev = field.attr('data-prev');
-    var prevTime = $("#timp_" + data_prev).val();
+    var data_prev = field.attr('data - prev ');
+    var prevTime = $("#time_" + data_prev).val();
     var time = field.val();
 
     prevTime = prevTime ? prevTime : 0;
@@ -56,16 +145,12 @@ function verificareCompletare(field, rules, i, options) {
     var time = field.val();
     var i = parseInt(data_next);
     i = i - 1;
-    /*if ($("#timp_" + i).attr('disabled') == "true")
-        $("#timp_" + data_next).attr({
-            'disabled': true
-        });*/
     if (time != "")
-        $("#timp_" + data_next).attr({
+        $("#time_" + data_next).attr({
             'disabled': false
         });
-    else if (time == "" || $("#timp_" + i).attr('disabled') == "true")
-        $("#timp_" + data_next).attr({
+    else if (time == "" || $("#time_" + i).attr('disabled ') == "true")
+        $("#time_" + data_next).attr({
             'disabled': true
         });
     return i;
@@ -74,172 +159,93 @@ function verificareCompletare(field, rules, i, options) {
 
 function generateNewChart() {
     "use strict";
-    var labelInputArray = {
-        'parametru_rata_estimari': 'Rata estimari',
-        'parametru_personal': 'Rata fluctuatii personal',
-        'parametru_resurse_materiale': 'Resurse materiale'
-    };
-    var labelOutputArray = {
-        'iesire_timp': 'Timp',
-        'iesire_cost': 'Cost'
-    };
-    var param_1 = $("#parametru_rata_estimari").val();
-    var param_2 = $("#parametru_personal").val();
-    var param_3 = $("#parametru_resurse_materiale").val();
-    var timpStabilit = $("#timp_stabilit").val();
-    var costStabilit = $("#cost_stabilit").val();
+    var timpStabilit = parseInput('timp_stabilit');
+    var costStabilit = parseInput('cost_stabilit');
+    var output = getOutput();
+    var input = getInput();
+    var coeficient = 1;
+    var pConstant = 10000 * coeficient / timpStabilit;
+    var interval = timpStabilit / 500;
+    var initConstant = pConstant;
 
-    var timp1 = $("#timp_1").val();
-    var procent1 = $("#procent_1").val();
-    var timp2 = $("#timp_2").val();
-    var procent2 = $("#procent_2").val();
-    var timp3 = $("#timp_3").val();
-    var procent3 = $("#procent_3").val();
-    var timp4 = $("#timp_4").val();
-    var procent4 = $("#procent_4").val();
-    var timp5 = $("#timp_5").val();
-    var procent5 = $("#procent_5").val();
-    var timp6 = $("#timp_6").val();
-    var procent6 = $("#procent_6").val();
+    getInputParameters();
+    getTimeChanges();
+    setInitialCoeficients();
 
-
-    var input = $("#parameters").val();
-    var output = $("#output").val();
-
-    param_1 = param_1 ? param_1 : 0;
-    param_2 = param_2 ? param_2 : 0;
-    param_3 = param_3 ? param_3 : 0;
-    timpStabilit = timpStabilit ? timpStabilit : 0;
-    costStabilit = costStabilit ? costStabilit : 0;
-
-    timp1 = timp1 ? timp1 : 0;
-    procent1 = procent1 ? procent1 : 0;
-    timp2 = timp2 ? timp2 : 0;
-    procent2 = procent2 ? procent2 : 0;
-    timp3 = timp3 ? timp3 : 0;
-    procent3 = procent3 ? procent3 : 0;
-    timp4 = timp4 ? timp4 : 0;
-    procent4 = procent4 ? procent4 : 0;
-    timp5 = timp5 ? timp5 : 0;
-    procent5 = procent5 ? procent5 : 0;
-    timp6 = timp6 ? timp6 : 0;
-    procent6 = procent6 ? procent6 : 0;
-
-    var valOutput = (output == "iesire_timp") ? timpStabilit : ((output == "iesire_cost") ? costStabilit : 0);
-
-    param_1 = parseInt(param_1) / 100;
-    param_2 = parseInt(param_2) / 100;
-    param_3 = parseInt(param_3) / 100;
-    timpStabilit = parseInt(timpStabilit);
-
-    timp1 = parseInt(timp1);
-    procent1 = parseInt(procent1);
-    timp2 = parseInt(timp2);
-    procent2 = parseInt(procent2);
-    timp3 = parseInt(timp3);
-    procent3 = parseInt(procent3);
-    timp4 = parseInt(timp4);
-    procent4 = parseInt(procent4);
-    timp5 = parseInt(timp5);
-    procent5 = parseInt(procent5);
-    timp6 = parseInt(timp6);
-    procent6 = parseInt(procent6);
-
-    var chart2 = [];
-    chart2.push([0, 0]);
-    var chart1 = [];
-    chart1.push([
-            0, 0
-        ]);
-    chart1.push([
-        valOutput, 100
-    ]);
-    var c1 = 1;
-    var c2 = 1;
-    var c3 = 1;
-    var cInit = c1 * param_1 + c2 * param_2 + c3 * param_3;
-    var rInit = valOutput;
-    var rIntermediar = cInit * timp1 * 100 / rInit;
-
-    switch (input) {
-    case "parametru_rata_estimari":
-        c1 = 100 / procent1;
-        break;
-    case "parametru_personal":
-        c2 = 100 / procent1;
-        break;
-    case "parametru_resurse_materiale":
-        c3 = procent1 / 100;
-        break;
+    var data = [];
+    for (var i = 0; i <= timpStabilit; i += interval) {
+        data.push([i, Math.sqrt(i * pConstant)]);
     }
-    cInit = c1 * param_1 + c2 * param_2 + c3 * param_3;
-    valOutput = (valOutput - timp1) / cInit + timp1;
-    if (rIntermediar > 100) {
-        rIntermediar = 100;
 
-    }
-    chart2.push([timp1, rIntermediar]);
-    if (!timp2 && rIntermediar < 100) {
-        chart2.push([valOutput, 100]);
-    } else if (rIntermediar < 100) {
-        rIntermediar += cInit * (timp2 - timp1) * 100 / valOutput;
-
-        switch (input) {
-        case "parametru_rata_estimari":
-            c1 = 100 / procent2;
-            c2 = 1;
-            c3 = 1;
-            break;
-        case "parametru_personal":
-            c2 = 100 / procent2;
-            c1 = 1;
-            c3 = 1;
-            break;
-        case "parametru_resurse_materiale":
-            c3 = procent2 / 100;
-            c2 = 1;
-            c1 = 1;
-            break;
+    var dataNew = [];
+    var initialTime = 0;
+    var lastR = 0;
+    var lastTime = 0;
+    for (var i = 0; i < globalTimeFields.length; i++) {
+        for (var j = initialTime; j <= timeChanges[i][0][0]; j += interval) {
+            lastR = Math.sqrt(j * pConstant);
+            dataNew.push([j, lastR]);
         }
-
-        if (rIntermediar > 100) {
-            chart2.push([100 * timp2 / rIntermediar, 100]);
-
-        } else {
-            chart2.push([timp2, rIntermediar]);
-            valOutput = (valOutput - timp2) / cInit + timp2;
-        }
+        lastTime = timeChanges[i][0][0];
+        initialTime = timeChanges[i][0][0] + interval;
+        changeParametersPercent(input, timeChanges[i][0][1]);
+        pConstant = computeConstant(initConstant);
+        console.log(pConstant);
 
     }
-    if (rIntermediar < 100) {
-        if (!timp3) {
-            chart2.push([valOutput, 100]);
-        } else {
-            rIntermediar += cInit * (timp2 - timp1) * 100 / valOutput;
-            chart2.push([timp2, rIntermediar]);
-            switch (input) {
-            case "parametru_rata_estimari":
-                c1 = 100 / procent2;
-                c2 = 1;
-                c3 = 1;
-                break;
-            case "parametru_personal":
-                c2 = 100 / procent2;
-                c1 = 1;
-                c3 = 1;
-                break;
-            case "parametru_resurse_materiale":
-                c3 = procent2 / 100;
-                c2 = 1;
-                c1 = 1;
-                break;
-            }
-            valOutput = (valOutput - timp2) / cInit + timp2;
-        }
-    }
-    chart(labelInputArray[input], labelOutputArray[output], chart1, chart2);
+
+    chart(globalInputs[input - 1], globalOutputs[output - 1], data, dataNew);
     return false;
 
+}
+
+
+
+function changeParametersPercent(input, value) {
+    coeficients[input - 1] = value / 100;
+
+}
+
+function computeConstant(constant) {
+    var result = 0;
+    parametersPercent.forEach(function (value, index) {
+        result += parametersPercent[index] / (100 * coeficients[index]);
+    });
+    return constant * result;
+}
+
+function getInputParameters() {
+    parametersPercent = [];
+    globalInputs.forEach(function (value, index) {
+        parametersPercent.push(parseInput("parametru_" + (index + 1)));
+    });
+}
+
+function setInitialCoeficients() {
+    for (i = 1; i <= globalInputs.length; i++) {
+        coeficients.push(1);
+    }
+}
+
+function getTimeChanges() {
+    timeChanges = [];
+    globalTimeFields.forEach(function (value, index) {
+        timeChanges.push([[parseInput("time_" + value), parseInput("percent_" + value)]]);
+    });
+}
+
+function getInput() {
+    return parseInput('parameters');
+}
+
+function getOutput() {
+    return parseInput('output');
+}
+
+function parseInput(selector) {
+    var result = $('#' + selector).val();
+    result = parseInt(result);
+    return result ? result : 0;
 }
 
 function chart(labelInput, labelOuptut, data1, data2) {
@@ -252,8 +258,7 @@ function chart(labelInput, labelOuptut, data1, data2) {
         },
         {
             data: data1,
-            //label: "Intrare: " + labelInput + "<br /> Iesire: " + labelOuptut
-            label: "Grafic initial realizabilitate/" + labelOuptut
+            label: "Grafic initial " + labelOuptut
         }
 
 
@@ -276,7 +281,7 @@ function chart(labelInput, labelOuptut, data1, data2) {
                 }
             },
             points: {
-                show: true
+                show: false
             }
         },
         legend: {
