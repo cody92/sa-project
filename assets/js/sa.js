@@ -199,6 +199,47 @@ function generateNewChart() {
 
 }
 
+function generateNewChartLiniar() {
+    "use strict";
+    var timpStabilit = parseInput('timp_stabilit');
+    var costStabilit = parseInput('cost_stabilit');
+    var output = getOutput();
+    var input = getInput();
+    var coeficient = 1;
+    var pConstant = 10000 * coeficient / timpStabilit;
+    var interval = timpStabilit / 500;
+    var initConstant = pConstant;
+
+    getInputParameters();
+    getTimeChanges();
+    setInitialCoeficients();
+
+    var data = [];
+    for (var i = 0; i <= timpStabilit; i += interval) {
+        data.push([i,2*i]);
+    }
+
+    var dataNew = [];
+    var initialTime = 0;
+    var lastR = 0;
+    var lastTime = 0;
+    for (var i = 0; i < globalTimeFields.length; i++) {
+        for (var j = initialTime; j <= timeChanges[i][0][0]; j += interval) {
+            lastR = Math.exp(-1/j) * j;
+            dataNew.push([j, lastR]);
+        }
+        lastTime = timeChanges[i][0][0];
+        initialTime = timeChanges[i][0][0] + interval;
+        changeParametersPercent(input, timeChanges[i][0][1]);
+        pConstant = computeConstant(initConstant);
+        console.log(pConstant);
+
+    }
+
+    chart(globalInputs[input - 1], globalOutputs[output - 1], data, dataNew);
+    return false;
+
+}
 
 
 function changeParametersPercent(input, value) {
@@ -252,10 +293,7 @@ function chart(labelInput, labelOuptut, data1, data2) {
     "use strict";
 
     $.plot($("#chart"), [
-        {
-            data: data2,
-            label: "Intrare: " + labelInput + "<br /> Iesire: " + labelOuptut
-        },
+        
         {
             data: data1,
             label: "Grafic initial " + labelOuptut
