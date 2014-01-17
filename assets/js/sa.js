@@ -15,6 +15,9 @@ var timeChanges = [];
 
 var globalTimeFields = [1];
 
+var globalParametersOutputInfluenceTime = [1, -1, 1];
+var globalParametersOutputInfluenceCost = [1, -1, 1];
+
 function addNewTimeField() {
     var position = globalTimeFields.length + 1;
     globalTimeFields.push(position);
@@ -81,6 +84,10 @@ function addNewParameter(input) {
     renderInput(globalInputs.length, new_parameter);
     renderSelect(globalInputs.length, new_parameter);
     renderOptionSelectInput(globalInputs.length, new_parameter);
+    var timeInfluence = parseInput('new_parameter_time');
+    var costInfluence = parseInput('new_parameters_cost');
+    globalParametersOutputInfluenceTime.push(timeInfluence);
+    globalParametersOutputInfluenceCost.push(costInfluence);
     $('#new_parameter ').val('');
     return false;
 }
