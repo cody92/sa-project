@@ -19,7 +19,7 @@ function addNewTimeField() {
     var position = globalTimeFields.length + 1;
     globalTimeFields.push(position);
 
-    var content1 = "<td><div class='col-lg-10'><input data-prev='" + (position - 1) + "' data-next='" + (position + 1) + "' class='validate[required,custom[number],min[1],funcCall[verificareTimpMaxim],funcCall[verificareCompletare]] form-control' type='text' id='time_" + (position) + "' placeholder='Timp'></div></td>";
+    var content1 = "<td><div class='col-lg-10'><input data-prev='" + (position - 1) + "' data-next='" + (position + 1) + "' class='validate[required,custom[number],min[1],funcCall[verificareTimpMaxim]] form-control' type='text' id='time_" + (position) + "' placeholder='Timp'></div></td>";
     $("#time_input").append(content1);
     var content2 = "<td><div class='col-lg-10'><input data-prev='" + (position - 1) + "' data-next='" + (position + 1) + "' class='validate[required,custom[number],min[0],max[200]] form-control' type='text' id='percent_" + (position) + "' placeholder='%'></div></td>";
     $("#percent_input").append(content2);
@@ -345,4 +345,11 @@ function chart(labelInput, labelOuptut, data1, data2) {
         }
     });
 
+}
+/////////////////////////////////////////////////////////////
+
+function popUp(URL) {
+    day = new Date();
+    id = day.getTime();
+    eval("page" + id + " = window.open(URL, '" + id + "', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width=500,height=500,left = 390,top = 50');");
 }

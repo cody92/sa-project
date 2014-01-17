@@ -36,3 +36,17 @@
     width: 50%;
     float: right;
 }
+.helpBtn{
+    float: right;
+    height: 48px;
+    margin-top: 14px;
+    text-align:right;
+}
+.imgDiv{
+    float:left;
+    width:746px;
+}
+.headDiv{
+    width: 1000px;
+    margin: 0;
+}
