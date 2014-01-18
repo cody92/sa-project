@@ -80,7 +80,7 @@ function formValidation() {
     $('#project-submit').validationEngine({
         onValidationComplete: function (form, status) {
             if (status) {
-                generateNewChartLog();
+                generateNewChart();
             }
         }
     });

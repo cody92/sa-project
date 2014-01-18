@@ -188,6 +188,15 @@ function verificareCompletare(field, rules, i, options) {
     return i;
 }
 
+function generateNewChart() {
+    var chartType = parseInput('chart_type');
+    if(chartType == 1) {
+        generateNewChartLog();
+    } else {
+        generateNewChartSqrt();
+    }
+}
+
 function generateNewChartLog() {
     "use strict";
     timpStabilit = parseInput('timp_stabilit');
@@ -243,6 +252,69 @@ function generateNewChartLog() {
     j = lastTime + interval;
     while (lastR < 100) {
         lastR = j * coeficientInitial * procentCalculat + adder;
+        dataNew.push([j, lastR]);
+        j += interval;
+    }
+    chart(globalInputs[input - 1], globalOutputs[output - 1], data, dataNew);
+    return false;
+
+}
+
+function generateNewChartSqrt() {
+    "use strict";
+    timpStabilit = parseInput('timp_stabilit');
+    costStabilit = parseInput('cost_stabilit');
+    var output = getOutput();
+    var input = getInput();
+    globalOutputVar = output - 1;
+    coeficients = [];
+    globalReferences = [];
+    parametersPercent = [];
+    timeChanges = [];
+    setGlobalInput(input - 1);
+
+    var outputInitial = output == 0 ? timpStabilit : costStabilit;
+
+    var coeficient = 100;
+    var interval = timpStabilit / 500;
+    var coeficientInitial = 100 * 100 / outputInitial;
+    var procentCalculat = 1;
+
+    getInputParameters();
+    getTimeChanges();
+
+    var data = [];
+    var lastR = 0;
+    for (var i = 0; i <= outputInitial; i += interval) {
+        lastR = Math.sqrt(i * coeficientInitial) * procentCalculat;
+        data.push([i, lastR]);
+    }
+
+    var dataNew = [];
+    var initialTime = 0;
+
+    var lastTime = 0;
+    var adder = 0;
+    for (var i = 0; i < globalTimeFields.length; i++) {
+        for (var j = initialTime; j <= timeChanges[i][0][0]; j += interval) {
+            lastR = Math.sqrt(j * coeficientInitial) * procentCalculat + adder;
+            if (lastR <= 100) {
+                dataNew.push([j, lastR]);
+            } else {
+                break;
+            }
+        }
+        lastTime = timeChanges[i][0][0];
+        initialTime = timeChanges[i][0][0] + interval;
+        changeReferences(i);
+        procentCalculat = computeCoeficient();
+        adder = lastR - Math.sqrt(lastTime * coeficientInitial) * procentCalculat;
+        var tst = 1;
+
+    }
+    j = lastTime + interval;
+    while (lastR < 100) {
+        lastR = Math.sqrt(j * coeficientInitial) * procentCalculat + adder;
         dataNew.push([j, lastR]);
         j += interval;
     }

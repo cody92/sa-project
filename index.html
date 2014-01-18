@@ -65,7 +65,7 @@
                         <span class="icon-bar"></span>
                     </button>
                     <div class="collapse navbar-collapse navbar-ex1-collapse" style="width:150%">
-                    
+
                         <div class="navbar-brand">
                             <a href="index.html" class="navbar-brand" style="padding:10px;">
                                 <img src="assets/img/logo.png" alt="">
@@ -74,11 +74,11 @@
                         <div class="topnav">
                             <div class="btn-toolbar">
                                 <a data-toggle="modal" data-original-title="Help" data-placement="bottom" class="btn btn-success" href="#helpModal">Help</a>
-                            
+
                             </div>
                         </div>
                     </div>
-                    
+
                 </header>
                 <div class="topnav">
 
@@ -104,10 +104,10 @@
                                     <option value="-1">Indirecta</option>
                                 </select>
                             </div>
-                            
+
                             <div>
                                 <label>Influenta costului:</label>
-                               <select data-placeholder="Choose" class="form-control chzn-select" tabindex="2" id="new_parameters_cost">
+                                <select data-placeholder="Choose" class="form-control chzn-select" tabindex="2" id="new_parameters_cost">
                                     <option value="1">Directa</option>
                                     <option value="-1">Indirecta</option>
                                 </select>
@@ -148,7 +148,7 @@
                             </div>
 
                             <div class="form-group">
-                                <a class='btn btn-mini btn-success' onclick="addNewTimeField()" >Adauga camp nou</a>
+                                <a class='btn btn-mini btn-success' onclick="addNewTimeField()">Adauga camp nou</a>
                             </div>
                             <div class="form-group">
                                 <table class="table-row">
@@ -179,6 +179,13 @@
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-success btn-line" data-original-title="" title="" value="Simulare">Simulare</button>
+                                <div class="col-lg-7" id="select-output">
+                                    <select data-placeholder="Dependenta" class="form-control chzn-select" tabindex="2" id="chart_type">
+                                        <option value="1">Liniara</option>
+                                        <option value="2">Parabola</option>
+                                    </select>
+                                </div>
+
                             </div>
                         </div>
                         <div class="generate-chart">
@@ -199,55 +206,61 @@
     <div id="footer">
         <p>2013 - 2014 &copy; Proiect - Analiza de senzitivitate</p>
     </div>
-        <!-- #helpModal -->
+    <!-- #helpModal -->
     <div id="helpModal" class="modal fade">
-      <div class="modal-dialog" style="width:800px;">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h3 class="modal-title">Tutorial</h3>
-          </div>
-          <div class="modal-body">
-            <p>
-              <h4>Parametri :</h4>
-                <p>-	in cadrul acestui meniu utilizatorul va alege ponderea fiecarui parametru;</p>
-                <p>-	primii 3 parametri (cei default) au implementata deja influenta timpului si a costului;</p>
-                <p>-	utilizatorul are posibilitatea de a adauga parametri noi;</p>
-              </p>
-                </br>
-              <p>
-                <h4>Pasi adaugare parametru:</h4>
-                  <p>1.	Se completeaza numele parametrului ;</p>
-                  <p>2.	Se alege influenta timpului precum si influenta costului ;</p>
-                  <p>3.	Se apasa butonul  <b>“Adauga parametru nou”</b>;</p>
-              </p>
-             </br>
-             <p>
+        <div class="modal-dialog" style="width:800px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">Tutorial</h3>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        <h4>Parametri :</h4>
+                        <p>- in cadrul acestui meniu utilizatorul va alege ponderea fiecarui parametru;</p>
+                        <p>- primii 3 parametri (cei default) au implementata deja influenta timpului si a costului;</p>
+                        <p>- utilizatorul are posibilitatea de a adauga parametri noi;</p>
+                    </p>
+                    </br>
+                    <p>
+                        <h4>Pasi adaugare parametru:</h4>
+                        <p>1. Se completeaza numele parametrului ;</p>
+                        <p>2. Se alege influenta timpului precum si influenta costului ;</p>
+                        <p>3. Se apasa butonul
+                            <b>“Adauga parametru nou”</b>;</p>
+                    </p>
+                    </br>
+                    <p>
 
-                  <h4>!!! IMPORTANT  : Ponderea totala a parametrilor trebuie sa insumeze 100%.</h4>
-              </p>
-              </br>
-              <p>
-                  <h4>Variatia parametrilor:</h4>
-                    <p>1.	Din lista de parametri se alege acel parametru care va influenta evolutia proiectului;</p>
-                    <p>2.	Se completeaza campul ce semnifica “timpul stabilit” pentru incheierea cu succes a proiectului ;</p>
-                    <p>3.	Se trece la completarea campului “cost stabilit” ce reprezinta costul presupus pentru realizarea proiectului ;</p>
-                    <p>4.	Se completeaza campul “timp” cu o valoare mai mica decat “timpul stabilit“ ;</p>
-                    <p>5.	Urmatorul camp reprezinta variatia parametrului (variatia minima fiind 0% , iar cea maxima 200% ); </p>
-                    <p>6.	Se pot adauga multiple campuri de acest tip pentru a simula cat mai precis evolutia proiectului ;</p>
-                    <p>7.	In final putem alege timpul sau costul pentru a vedea cum s-au modificat in functie de variatiile introduse ;</p>
-            </p>
-            <br>
-            <p>
-                <h4>Afisarea graficului se face prin apasarea butonului <b>“SIMULARE”</b>.</h4>
-            </p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal --><!-- /#helpModal -->
+                        <h4>!!! IMPORTANT : Ponderea totala a parametrilor trebuie sa insumeze 100%.</h4>
+                    </p>
+                    </br>
+                    <p>
+                        <h4>Variatia parametrilor:</h4>
+                        <p>1. Din lista de parametri se alege acel parametru care va influenta evolutia proiectului;</p>
+                        <p>2. Se completeaza campul ce semnifica “timpul stabilit” pentru incheierea cu succes a proiectului ;</p>
+                        <p>3. Se trece la completarea campului “cost stabilit” ce reprezinta costul presupus pentru realizarea proiectului ;</p>
+                        <p>4. Se completeaza campul “timp” cu o valoare mai mica decat “timpul stabilit“ ;</p>
+                        <p>5. Urmatorul camp reprezinta variatia parametrului (variatia minima fiind 0% , iar cea maxima 200% );</p>
+                        <p>6. Se pot adauga multiple campuri de acest tip pentru a simula cat mai precis evolutia proiectului ;</p>
+                        <p>7. In final putem alege timpul sau costul pentru a vedea cum s-au modificat in functie de variatiile introduse ;</p>
+                    </p>
+                    <br>
+                    <p>
+                        <h4>Afisarea graficului se face prin apasarea butonului
+                            <b>“SIMULARE”</b>.</h4>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    <!-- /#helpModal -->
     <script src="assets/lib/jquery.min.js"></script>
     <script src="assets/lib/bootstrap/js/bootstrap.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
