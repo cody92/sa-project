@@ -15,11 +15,14 @@ var timeChanges = [];
 
 var globalTimeFields = [1];
 
-var globalParametersOutputInfluenceTime = [1, -1, 1];
+var globalParametersOutputInfluenceTime = [1, 1, 1];
 var globalParametersOutputInfluenceCost = [-1, -1, 1];
 
+var usedOutputInfluence = [[1, 1, 1], [-1, -1, 1]];
 
 var globalInputVar = 0;
+
+var globalOutputVar = 0;
 
 var globalReferences = [];
 
@@ -93,8 +96,8 @@ function addNewParameter(input) {
     renderOptionSelectInput(globalInputs.length, new_parameter);
     var timeInfluence = parseInput('new_parameter_time');
     var costInfluence = parseInput('new_parameters_cost');
-    globalParametersOutputInfluenceTime.push(timeInfluence);
-    globalParametersOutputInfluenceCost.push(costInfluence);
+    usedOutputInfluence[0].push(timeInfluence);
+    usedOutputInfluence[1].push(costInfluence);
     $('#new_parameter ').val('');
     return false;
 }
@@ -176,6 +179,7 @@ function generateNewChartLog() {
     var costStabilit = parseInput('cost_stabilit');
     var output = getOutput();
     var input = getInput();
+    globalOutputVar = output - 1;
     coeficients = [];
     globalReferences = [];
     parametersPercent = [];
@@ -239,7 +243,7 @@ function computeCoeficient() {
 function changeReferences(value) {
 
     var reference = timeChanges[value][0][1] / 100;
-    reference = globalParametersOutputInfluenceTime[globalInputVar] == 1 ? 1 / reference : reference;
+    reference = usedOutputInfluence[globalOutputVar][globalInputVar] == 1 ? 1 / reference : reference;
     globalReferences[globalInputVar] = reference;
 }
 
