@@ -210,7 +210,7 @@ function generateNewChartLog() {
     timeChanges = [];
     setGlobalInput(input - 1);
 
-    var outputInitial = output == 0 ? timpStabilit : costStabilit;
+    var outputInitial = output == 1 ? timpStabilit : costStabilit;
 
     var coeficient = 100;
     var interval = timpStabilit / 500;
@@ -273,7 +273,7 @@ function generateNewChartSqrt() {
     timeChanges = [];
     setGlobalInput(input - 1);
 
-    var outputInitial = output == 0 ? timpStabilit : costStabilit;
+    var outputInitial = output == 1 ? timpStabilit : costStabilit;
 
     var coeficient = 100;
     var interval = timpStabilit / 500;
