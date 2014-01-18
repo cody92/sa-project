@@ -12,6 +12,9 @@ var globalOutputs = [
     'Cost'
     ];
 
+var timpStabilit;
+var costStabilit;
+
 var parametersPercent = [];
 var coeficients = [];
 var timeChanges = [];
@@ -187,8 +190,8 @@ function verificareCompletare(field, rules, i, options) {
 
 function generateNewChartLog() {
     "use strict";
-    var timpStabilit = parseInput('timp_stabilit');
-    var costStabilit = parseInput('cost_stabilit');
+    timpStabilit = parseInput('timp_stabilit');
+    costStabilit = parseInput('cost_stabilit');
     var output = getOutput();
     var input = getInput();
     globalOutputVar = output - 1;
@@ -198,9 +201,11 @@ function generateNewChartLog() {
     timeChanges = [];
     setGlobalInput(input - 1);
 
+    var outputInitial = output == 0 ? timpStabilit : costStabilit;
+
     var coeficient = 100;
     var interval = timpStabilit / 500;
-    var coeficientInitial = 100 / timpStabilit;
+    var coeficientInitial = 100 / outputInitial;
     var procentCalculat = 1;
 
     getInputParameters();
@@ -208,7 +213,7 @@ function generateNewChartLog() {
 
     var data = [];
     var lastR = 0;
-    for (var i = 0; i <= timpStabilit; i += interval) {
+    for (var i = 0; i <= outputInitial; i += interval) {
         lastR = i * coeficientInitial * procentCalculat;
         data.push([i, lastR]);
     }
@@ -245,6 +250,7 @@ function generateNewChartLog() {
     return false;
 
 }
+
 
 function computeCoeficient() {
     return computeNum();
@@ -283,8 +289,12 @@ function getInputParameters() {
 
 function getTimeChanges() {
     timeChanges = [];
+    var ramp = 1;
+    if (globalOutputVar == 1) {
+        ramp = costStabilit / timpStabilit;
+    }
     globalTimeFields.forEach(function (value, index) {
-        timeChanges.push([[parseInput("time_" + value), parseInput("percent_" + value)]]);
+        timeChanges.push([[parseInput("time_" + value) * ramp, parseInput("percent_" + value)]]);
     });
 }
 
