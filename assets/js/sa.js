@@ -196,8 +196,8 @@ function generateNewChartLog() {
         data.push([i, lastR]);
     }
 
-    var maxValue = data[data.length - 1][1];
-    var test = 100 / maxValue;
+    var maxValue1 = data[data.length - 1][1];
+    var test = 100 / maxValue1;
 
     data.forEach(function (curent, index) {
         data[index][1] = data[index][1] * test;
@@ -217,6 +217,14 @@ function generateNewChartLog() {
         computeDenCoeficient = timeChanges[i][0][0] / 10;
         coeficient = computeCoeficient();
         //console.log(coeficient);
+
+    }
+    var lastMaxValue = dataNew[dataNew.length - 1][1];
+    var j = lastTime;
+    while(lastMaxValue <= maxValue1) {
+        lastMaxValue = Math.sqrt(j * coeficient);
+        dataNew.push([j, lastMaxValue]);
+        j += interval;
 
     }
 
