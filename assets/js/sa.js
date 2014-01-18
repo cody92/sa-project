@@ -3,7 +3,7 @@ var curentTimeChanges = 1;
 
 var globalInputs = [
     'Rata estimari',
-    'Rata fluctuatii personal',
+    'Resurse umane',
     'Resurse materiale'
 ];
 
@@ -245,8 +245,6 @@ function generateNewChartLog() {
     return false;
 
 }
-
-
 
 function computeCoeficient() {
     return computeNum();
