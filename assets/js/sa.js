@@ -1,3 +1,4 @@
+
 var globalInputs = [
     'Rata estimari',
     'Rata fluctuatii personal',
@@ -18,7 +19,6 @@ var globalTimeFields = [1];
 var globalParametersOutputInfluenceTime = [1, -1, 1];
 var globalParametersOutputInfluenceCost = [-1, -1, 1];
 
-var globalUsedParameters;
 
 var globalInputVar = 0;
 
@@ -226,12 +226,6 @@ function generateNewChartLog() {
 
     dataNew.forEach(function (curent, index) {
         currentValue = dataNew[index][1] * test;
-        if(currentValue <=101) {
-            dataNew[index][1] = currentValue;
-        }
-        else {
-            break;
-        }
     });
 
     chart(globalInputs[input - 1], globalOutputs[output - 1], data, dataNew);
