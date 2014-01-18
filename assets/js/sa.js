@@ -1,3 +1,6 @@
+var maxNewTimeChanges = 8;
+var curentTimeChanges = 1;
+
 var globalInputs = [
     'Rata estimari',
     'Rata fluctuatii personal',
@@ -30,6 +33,11 @@ var computeDenCoeficient = 1;
 
 function addNewTimeField() {
     var position = globalTimeFields.length + 1;
+    if (curentTimeChanges > maxNewTimeChanges) {
+        alert("S-a atins numarul maxim de variatii parametri?");
+        return true;
+    }
+    curentTimeChanges++;
     globalTimeFields.push(position);
 
     var content1 = "<td><div class='col-lg-10'><input data-prev='" + (position - 1) + "' data-next='" + (position + 1) + "' class='validate[required,custom[number],min[1],funcCall[verificareTimpMaxim]] form-control' type='text' id='time_" + (position) + "' placeholder='Timp'></div></td>";
@@ -88,6 +96,10 @@ function addNewParameter(input) {
     var new_parameter = $('#new_parameter ').val();
     if (!new_parameter) {
         alert('Completeaza numele noului parametru ');
+        return false;
+    }
+    if (globalInputs.indexOf(new_parameter) != -1) {
+        alert('Acest parametru exista deja. Adaugati alt parametru!');
         return false;
     }
     globalInputs.push(new_parameter);
@@ -243,7 +255,7 @@ function computeCoeficient() {
 function changeReferences(value) {
 
     var reference = timeChanges[value][0][1] / 100;
-    reference = usedOutputInfluence[globalOutputVar][globalInputVar] == 1 ? 1 / reference : reference;
+    reference = usedOutputInfluence[globalOutputVar][globalInputVar] == 1 ? reference : 1 / reference;
     globalReferences[globalInputVar] = reference;
 }
 
