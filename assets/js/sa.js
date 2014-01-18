@@ -1,4 +1,3 @@
-
 var globalInputs = [
     'Rata estimari',
     'Rata fluctuatii personal',
@@ -177,65 +176,55 @@ function generateNewChartLog() {
     var costStabilit = parseInput('cost_stabilit');
     var output = getOutput();
     var input = getInput();
-
+    coeficients = [];
+    globalReferences = [];
+    parametersPercent = [];
+    timeChanges = [];
     setGlobalInput(input - 1);
 
-    var coeficient = 1;
-    var pConstant = 10000 * coeficient / timpStabilit;
+    var coeficient = 100;
     var interval = timpStabilit / 500;
-    var initConstant = pConstant;
+    var coeficientInitial = 100 / timpStabilit;
+    var procentCalculat = 1;
 
     getInputParameters();
     getTimeChanges();
-    setInitialCoeficients();
 
     var data = [];
     var lastR = 0;
     for (var i = 0; i <= timpStabilit; i += interval) {
-        lastR = Math.sqrt(i * coeficient);
+        lastR = i * coeficientInitial * procentCalculat;
         data.push([i, lastR]);
     }
 
-    var maxValue1 = data[data.length - 1][1];
-    var test = 100 / maxValue1;
-
-    data.forEach(function (curent, index) {
-        data[index][1] = data[index][1] * test;
-    });
     var dataNew = [];
     var initialTime = 0;
 
     var lastTime = 0;
+    var adder = 0;
     for (var i = 0; i < globalTimeFields.length; i++) {
         for (var j = initialTime; j <= timeChanges[i][0][0]; j += interval) {
-            lastR = Math.sqrt(j * coeficient);
-            dataNew.push([j, lastR]);
+            lastR = j * coeficientInitial * procentCalculat + adder;
+            if (lastR <= 100) {
+                dataNew.push([j, lastR]);
+            } else {
+                break;
+            }
         }
         lastTime = timeChanges[i][0][0];
         initialTime = timeChanges[i][0][0] + interval;
-        changeParametersPercent(input, timeChanges[i][0][1]);
-        computeDenCoeficient = timeChanges[i][0][0] / 10;
-        coeficient = computeCoeficient();
-        //console.log(coeficient);
+        changeReferences(i);
+        procentCalculat = computeCoeficient();
+        adder = lastR - lastTime * coeficientInitial * procentCalculat;
+        var tst = 1;
 
     }
-    var lastMaxValue = dataNew[dataNew.length - 1][1];
-    var j = lastTime;
-    while(lastMaxValue <= maxValue1) {
-        lastMaxValue = Math.sqrt(j * coeficient);
-        dataNew.push([j, lastMaxValue]);
+    j = lastTime + interval;
+    while (lastR < 100) {
+        lastR = j * coeficientInitial * procentCalculat + adder;
+        dataNew.push([j, lastR]);
         j += interval;
-
     }
-
-    var maxValue = dataNew[dataNew.length - 1][1];
-    var test = 100 / maxValue;
-    var currentValue = 0;
-
-    dataNew.forEach(function (curent, index) {
-        currentValue = dataNew[index][1] * test;
-    });
-
     chart(globalInputs[input - 1], globalOutputs[output - 1], data, dataNew);
     return false;
 
@@ -243,29 +232,21 @@ function generateNewChartLog() {
 
 
 
-function changeParametersPercent(input, value) {
-    coeficients[input - 1] = value / 100;
-
-}
-
 function computeCoeficient() {
-    changeReferences();
-    var num = computeNum();
-    var den = computeDen();
-    return num / den;
+    return computeNum();
 }
 
-function changeReferences() {
+function changeReferences(value) {
 
-    var reference = timeChanges[globalInputVar][0][1] / 100;
-    reference = globalParametersOutputInfluenceTime[globalInputVar] == 1 ? reference : 1 / reference;
+    var reference = timeChanges[value][0][1] / 100;
+    reference = globalParametersOutputInfluenceTime[globalInputVar] == 1 ? 1 / reference : reference;
     globalReferences[globalInputVar] = reference;
 }
 
 function computeNum() {
     var result = 0;
     parametersPercent.forEach(function (value, index) {
-        result += parametersPercent[index] * globalParametersOutputInfluenceTime[index];
+        result += parametersPercent[index] * globalReferences[index] / 100;
     });
     return result;
 }
@@ -284,12 +265,6 @@ function getInputParameters() {
         parametersPercent.push(parseInput("parametru_" + (index + 1)));
         globalReferences.push(1);
     });
-}
-
-function setInitialCoeficients() {
-    for (i = 1; i <= globalInputs.length; i++) {
-        coeficients.push(1);
-    }
 }
 
 function getTimeChanges() {
