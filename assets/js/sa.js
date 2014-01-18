@@ -16,7 +16,9 @@ var timeChanges = [];
 var globalTimeFields = [1];
 
 var globalParametersOutputInfluenceTime = [1, -1, 1];
-var globalParametersOutputInfluenceCost = [1, -1, 1];
+var globalParametersOutputInfluenceCost = [-1, -1, 1];
+
+var globalUsedParameters;
 
 var globalInputVar = 0;
 
@@ -190,7 +192,7 @@ function generateNewChartLog() {
     var data = [];
     var lastR = 0;
     for (var i = 0; i <= timpStabilit; i += interval) {
-        lastR = i * Math.exp(coeficient);
+        lastR = Math.sqrt(i * coeficient);
         data.push([i, lastR]);
     }
 
@@ -202,17 +204,17 @@ function generateNewChartLog() {
     });
     var dataNew = [];
     var initialTime = 0;
-    
+
     var lastTime = 0;
     for (var i = 0; i < globalTimeFields.length; i++) {
         for (var j = initialTime; j <= timeChanges[i][0][0]; j += interval) {
-            lastR = j * Math.exp(coeficient);
+            lastR = Math.sqrt(j * coeficient);
             dataNew.push([j, lastR]);
         }
         lastTime = timeChanges[i][0][0];
         initialTime = timeChanges[i][0][0] + interval;
         changeParametersPercent(input, timeChanges[i][0][1]);
-        computeDenCoeficient = timeChanges[i][0][0] / 100;
+        computeDenCoeficient = timeChanges[i][0][0] / 10;
         coeficient = computeCoeficient();
         //console.log(coeficient);
 
@@ -220,9 +222,16 @@ function generateNewChartLog() {
 
     var maxValue = dataNew[dataNew.length - 1][1];
     var test = 100 / maxValue;
+    var currentValue = 0;
 
     dataNew.forEach(function (curent, index) {
-        dataNew[index][1] = dataNew[index][1] * test;
+        currentValue = dataNew[index][1] * test;
+        if(currentValue <=101) {
+            dataNew[index][1] = currentValue;
+        }
+        else {
+            break;
+        }
     });
 
     chart(globalInputs[input - 1], globalOutputs[output - 1], data, dataNew);
@@ -245,13 +254,13 @@ function computeCoeficient() {
 }
 
 function changeReferences() {
-    
+
     var reference = timeChanges[globalInputVar][0][1] / 100;
     reference = globalParametersOutputInfluenceTime[globalInputVar] == 1 ? reference : 1 / reference;
     globalReferences[globalInputVar] = reference;
 }
 
-function computeNum(){
+function computeNum() {
     var result = 0;
     parametersPercent.forEach(function (value, index) {
         result += parametersPercent[index] * globalParametersOutputInfluenceTime[index];
@@ -308,12 +317,12 @@ function chart(labelInput, labelOuptut, data1, data2) {
     $.plot($("#chart"), [
 
         {
-            data: data2,
-            label: "Grafic initial " + labelOuptut
+            data: data1,
+            label: "Grafic initial iesire: " + labelOuptut
         },
         {
-            data: data1,
-            label: "Grafic dupa",
+            data: data2,
+            label: "Grafic iesire " + labelOuptut + "<br />parametru modificat " + labelInput,
         }
 
 
