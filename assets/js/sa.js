@@ -436,7 +436,7 @@ function chart(labelInput, labelOuptut, data1, data2) {
         },
         tooltip: true,
         tooltipOpts: {
-            content: "Timp: %x<br /> Realizabilitate: %y",
+            content: globalOutputs[globalOutputVar] + ": %x<br /> Realizabilitate: %y",
             shifts: {
                 x: -60,
                 y: 25
