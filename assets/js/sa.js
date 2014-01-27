@@ -21,10 +21,10 @@ var timeChanges = [];
 
 var globalTimeFields = [1];
 
-var globalParametersOutputInfluenceTime = [1, 1, 1];
-var globalParametersOutputInfluenceCost = [-1, -1, 1];
+var globalParametersOutputInfluenceTime = [-1, -1, -1];
+var globalParametersOutputInfluenceCost = [1, 1, -1];
 
-var usedOutputInfluence = [[1, 1, 1], [-1, -1, 1]];
+var usedOutputInfluence = [[-1, -1, -1], [-1, 1, 1]];
 
 var globalInputVar = 0;
 
@@ -331,7 +331,7 @@ function computeCoeficient() {
 function changeReferences(value) {
 
     var reference = timeChanges[value][0][1] / 100;
-    reference = usedOutputInfluence[globalOutputVar][globalInputVar] == 1 ? reference : 1 / reference;
+    reference = usedOutputInfluence[globalOutputVar][globalInputVar] == 1 ? 1 / reference : reference;
     globalReferences[globalInputVar] = reference;
 }
 
