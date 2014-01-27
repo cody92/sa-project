@@ -189,12 +189,7 @@ function verificareCompletare(field, rules, i, options) {
 }
 
 function generateNewChart() {
-    var chartType = parseInput('chart_type');
-    if(chartType == 1) {
-        generateNewChartLog();
-    } else {
-        generateNewChartSqrt();
-    }
+    generateNewChartLog();
 }
 
 function generateNewChartLog() {
@@ -210,6 +205,7 @@ function generateNewChartLog() {
     timeChanges = [];
     setGlobalInput(input - 1);
 
+
     var outputInitial = output == 1 ? timpStabilit : costStabilit;
 
     var coeficient = 100;
@@ -217,26 +213,35 @@ function generateNewChartLog() {
     var coeficientInitial = 100 / outputInitial;
     var procentCalculat = 1;
 
+    var costCoeficient = costStabilit / timpStabilit;
+
     getInputParameters();
     getTimeChanges();
 
     var data = [];
+    var dataCost = [];
     var lastR = 0;
+    var lastC = 0;
     for (var i = 0; i <= outputInitial; i += interval) {
         lastR = i * coeficientInitial * procentCalculat;
         data.push([i, lastR]);
+        dataCost.push([i, i * costCoeficient]);
     }
 
     var dataNew = [];
+    var dataCost2 = [];
     var initialTime = 0;
 
     var lastTime = 0;
     var adder = 0;
+    var adderC = 0;
     for (var i = 0; i < globalTimeFields.length; i++) {
         for (var j = initialTime; j <= timeChanges[i][0][0]; j += interval) {
             lastR = j * coeficientInitial * procentCalculat + adder;
+            lastC = j * costCoeficient * procentCalculat + adderC;
             if (lastR <= 100) {
                 dataNew.push([j, lastR]);
+                dataCost2.push([j, lastC]);
             } else {
                 break;
             }
@@ -246,83 +251,23 @@ function generateNewChartLog() {
         changeReferences(i);
         procentCalculat = computeCoeficient();
         adder = lastR - lastTime * coeficientInitial * procentCalculat;
+        adderC = lastC - lastTime * costCoeficient * procentCalculat;
         var tst = 1;
 
     }
     j = lastTime + interval;
     while (lastR < 100) {
         lastR = j * coeficientInitial * procentCalculat + adder;
+        lastC = j * costCoeficient * procentCalculat + adderC;
         dataNew.push([j, lastR]);
+        dataCost2.push([j, lastC]);
         j += interval;
     }
     chart(globalInputs[input - 1], globalOutputs[output - 1], data, dataNew);
+    chart1(globalInputs[input - 1], globalOutputs[output - 1], dataCost, dataCost2);
     return false;
 
 }
-
-function generateNewChartSqrt() {
-    "use strict";
-    timpStabilit = parseInput('timp_stabilit');
-    costStabilit = parseInput('cost_stabilit');
-    var output = getOutput();
-    var input = getInput();
-    globalOutputVar = output - 1;
-    coeficients = [];
-    globalReferences = [];
-    parametersPercent = [];
-    timeChanges = [];
-    setGlobalInput(input - 1);
-
-    var outputInitial = output == 1 ? timpStabilit : costStabilit;
-
-    var coeficient = 100;
-    var interval = timpStabilit / 500;
-    var coeficientInitial = 100 * 100 / outputInitial;
-    var procentCalculat = 1;
-
-    getInputParameters();
-    getTimeChanges();
-
-    var data = [];
-    var lastR = 0;
-    for (var i = 0; i <= outputInitial; i += interval) {
-        lastR = Math.sqrt(i * coeficientInitial) * procentCalculat;
-        data.push([i, lastR]);
-    }
-
-    var dataNew = [];
-    var initialTime = 0;
-
-    var lastTime = 0;
-    var adder = 0;
-    for (var i = 0; i < globalTimeFields.length; i++) {
-        for (var j = initialTime; j <= timeChanges[i][0][0]; j += interval) {
-            lastR = Math.sqrt(j * coeficientInitial) * procentCalculat + adder;
-            if (lastR <= 100) {
-                dataNew.push([j, lastR]);
-            } else {
-                break;
-            }
-        }
-        lastTime = timeChanges[i][0][0];
-        initialTime = timeChanges[i][0][0] + interval;
-        changeReferences(i);
-        procentCalculat = computeCoeficient();
-        adder = lastR - Math.sqrt(lastTime * coeficientInitial) * procentCalculat;
-        var tst = 1;
-
-    }
-    j = lastTime + interval;
-    while (lastR < 100) {
-        lastR = Math.sqrt(j * coeficientInitial) * procentCalculat + adder;
-        dataNew.push([j, lastR]);
-        j += interval;
-    }
-    chart(globalInputs[input - 1], globalOutputs[output - 1], data, dataNew);
-    return false;
-
-}
-
 
 function computeCoeficient() {
     return computeNum();
@@ -437,6 +382,68 @@ function chart(labelInput, labelOuptut, data1, data2) {
         tooltip: true,
         tooltipOpts: {
             content: globalOutputs[globalOutputVar] + ": %x<br /> Realizabilitate: %y",
+            shifts: {
+                x: -60,
+                y: 25
+            }
+        }
+    });
+
+}
+
+function chart1(labelInput, labelOuptut, data, data1) {
+    "use strict";
+
+    $.plot($("#chart-cost"), [
+
+        {
+            data: data,
+            label: "Grafic cost initial",
+        },
+        {
+            data: data1,
+            label: "Grafic cost variatie " + labelInput,
+        }
+
+
+    ], {
+        clickable: true,
+        hoverable: true,
+        series: {
+            lines: {
+                show: true,
+                fill: false,
+                fillColor: {
+                    colors: [
+                        {
+                            opacity: 0.5
+                        },
+                        {
+                            opacity: 0.15
+                        }
+            ]
+                }
+            },
+            points: {
+                show: false
+            }
+        },
+        legend: {
+            position: "nw"
+        },
+        xaxis: {
+            label: labelOuptut
+        },
+        yaxis: {
+            label: 'Realizabilitate'
+        },
+        grid: {
+            hoverable: true,
+            clickable: true
+        },
+        tooltip: true,
+        tooltipOpts: {
+            content: "Timp: %x<br /> Cost: %y",
             shifts: {
                 x: -60,
                 y: 25
