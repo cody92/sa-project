@@ -24,7 +24,7 @@ var globalTimeFields = [1];
 var globalParametersOutputInfluenceTime = [-1, -1, -1];
 var globalParametersOutputInfluenceCost = [1, 1, -1];
 
-var usedOutputInfluence = [[-1, -1, -1], [-1, 1, 1]];
+var usedOutputInfluence = [[-1, -1, -1], [-1, -1, -1]];
 
 var globalInputVar = 0;
 
@@ -213,7 +213,7 @@ function generateNewChartLog() {
     var coeficientInitial = 100 / outputInitial;
     var procentCalculat = 1;
     var procentCalculatCost = 1;
-    var costCoeficient = costStabilit / timpStabilit;
+    var costCoeficient = costStabilit;
 
     getInputParameters();
     getTimeChanges();
@@ -235,17 +235,18 @@ function generateNewChartLog() {
     var lastTime = 0;
     var adder = 0;
     var adderC = 0;
+    dataCost2.push([0, 0]);
     for (var i = 0; i < globalTimeFields.length; i++) {
         for (var j = initialTime; j <= timeChanges[i][0][0]; j += interval) {
             lastR = j * coeficientInitial * procentCalculat + adder;
-            lastC = j * costCoeficient * procentCalculatCost + adderC;
             if (lastR <= 100) {
                 dataNew.push([j, lastR]);
-                dataCost2.push([j, lastC]);
             } else {
                 break;
             }
         }
+        lastC += (timeChanges[i][0][0] - lastTime) * procentCalculatCost * costCoeficient;
+        dataCost2.push([timeChanges[i][0][0], lastC]);
         lastTime = timeChanges[i][0][0];
         initialTime = timeChanges[i][0][0] + interval;
         changeReferences(i, 0);
@@ -253,17 +254,20 @@ function generateNewChartLog() {
         changeReferences(i, 1);
         procentCalculatCost = computeCoeficient();
         adder = lastR - lastTime * coeficientInitial * procentCalculat;
-        adderC = lastC - lastTime * costCoeficient * procentCalculatCost;
-        var tst = 1;
 
     }
+
     j = lastTime + interval;
+    var ok1 = false;
     while (lastR < 100) {
         lastR = j * coeficientInitial * procentCalculat + adder;
-        lastC = j * costCoeficient * procentCalculatCost + adderC;
         dataNew.push([j, lastR]);
-        dataCost2.push([j, lastC]);
         j += interval;
+        ok1 = true;
+    }
+    if (ok1) {
+        lastC += (j - interval - lastTime) * procentCalculatCost * costCoeficient;
+        dataCost2.push([j - interval, lastC]);
     }
     chart(globalInputs[input - 1], globalOutputs[output - 1], data, dataNew);
     chart1(globalInputs[input - 1], globalOutputs[output - 1], dataCost, dataCost2);
@@ -289,6 +293,7 @@ function computeNum() {
     });
     return result;
 }
+
 function setGlobalInput(input) {
     globalInputVar = input;
 }
@@ -422,7 +427,7 @@ function chart1(labelInput, labelOuptut, data, data1) {
                 }
             },
             points: {
-                show: false
+                show: true
             }
         },
         legend: {
