@@ -212,7 +212,7 @@ function generateNewChartLog() {
     var interval = timpStabilit / 500;
     var coeficientInitial = 100 / outputInitial;
     var procentCalculat = 1;
-
+    var procentCalculatCost = 1;
     var costCoeficient = costStabilit / timpStabilit;
 
     getInputParameters();
@@ -238,7 +238,7 @@ function generateNewChartLog() {
     for (var i = 0; i < globalTimeFields.length; i++) {
         for (var j = initialTime; j <= timeChanges[i][0][0]; j += interval) {
             lastR = j * coeficientInitial * procentCalculat + adder;
-            lastC = j * costCoeficient * procentCalculat + adderC;
+            lastC = j * costCoeficient * procentCalculatCost + adderC;
             if (lastR <= 100) {
                 dataNew.push([j, lastR]);
                 dataCost2.push([j, lastC]);
@@ -248,17 +248,19 @@ function generateNewChartLog() {
         }
         lastTime = timeChanges[i][0][0];
         initialTime = timeChanges[i][0][0] + interval;
-        changeReferences(i);
+        changeReferences(i, 0);
         procentCalculat = computeCoeficient();
+        changeReferences(i, 1);
+        procentCalculatCost = computeCoeficient();
         adder = lastR - lastTime * coeficientInitial * procentCalculat;
-        adderC = lastC - lastTime * costCoeficient * procentCalculat;
+        adderC = lastC - lastTime * costCoeficient * procentCalculatCost;
         var tst = 1;
 
     }
     j = lastTime + interval;
     while (lastR < 100) {
         lastR = j * coeficientInitial * procentCalculat + adder;
-        lastC = j * costCoeficient * procentCalculat + adderC;
+        lastC = j * costCoeficient * procentCalculatCost + adderC;
         dataNew.push([j, lastR]);
         dataCost2.push([j, lastC]);
         j += interval;
@@ -273,10 +275,10 @@ function computeCoeficient() {
     return computeNum();
 }
 
-function changeReferences(value) {
+function changeReferences(value, output) {
 
     var reference = timeChanges[value][0][1] / 100;
-    reference = usedOutputInfluence[globalOutputVar][globalInputVar] == 1 ? 1 / reference : reference;
+    reference = usedOutputInfluence[output][globalInputVar] == 1 ? 1 / reference : reference;
     globalReferences[globalInputVar] = reference;
 }
 
@@ -287,11 +289,6 @@ function computeNum() {
     });
     return result;
 }
-
-function computeDen() {
-    return computeDenCoeficient;
-}
-
 function setGlobalInput(input) {
     globalInputVar = input;
 }
