@@ -15,6 +15,8 @@ var globalOutputs = [
 var timpStabilit;
 var costStabilit;
 
+var norma;
+
 var parametersPercent = [];
 var coeficients = [];
 var timeChanges = [];
@@ -22,7 +24,7 @@ var timeChanges = [];
 var globalTimeFields = [1];
 
 var globalParametersOutputInfluenceTime = [-1, -1, -1];
-var globalParametersOutputInfluenceCost = [1, 1, -1];
+var globalParametersOutputInfluenceCost = [-1, 1, 1];
 
 var usedOutputInfluence = [[-1, -1, -1], [-1, -1, -1]];
 
@@ -58,9 +60,9 @@ function generateInputsFields() {
         renderSelect(i++, input);
     });
     i = 1;
-    globalOutputs.forEach(function (label) {
+    /*globalOutputs.forEach(function (label) {
         renderOutputSelect(i++, label);
-    });
+    });*/
     renderInputTitle();
 
 }
@@ -136,6 +138,26 @@ function testSumaProcente(field, rules, i, options) {
         if (result != param_max_sum) {
             return 'Suma procentelor trebuie sa fie 100!';
         }
+}
+
+//functia de normare
+function normare(field, rules, i, options) {
+    "use strict";
+    var param_max_sum = 100;
+    var norma1 = 0;
+    var ok = true;
+    for (var i = 1; i <= globalInputs.length; i++) {
+        var partial = parseInput("parametru_" + i);
+        if (!partial) {
+            ok = false;
+            break;
+        } else {
+            norma1 += 1 / (1 - partial / 100);
+        }
+    }
+
+    return norma1;
+
 }
 
 function verificareTimpMaxim(field, rules, i, options) {
@@ -225,36 +247,41 @@ function generateNewChartLog() {
     for (var i = 0; i <= outputInitial; i += interval) {
         lastR = i * coeficientInitial * procentCalculat;
         data.push([i, lastR]);
-        dataCost.push([i, i * costCoeficient]);
+        dataCost.push([i, i * costCoeficient / timpStabilit]);
     }
 
     var dataNew = [];
     var dataCost2 = [];
     var initialTime = 0;
-
+    norma = 1;
     var lastTime = 0;
     var adder = 0;
     var adderC = 0;
     dataCost2.push([0, 0]);
+    var oldTime = 0;
     for (var i = 0; i < globalTimeFields.length; i++) {
         for (var j = initialTime; j <= timeChanges[i][0][0]; j += interval) {
             lastR = j * coeficientInitial * procentCalculat + adder;
+            oldTime = j;
+
             if (lastR <= 100) {
                 dataNew.push([j, lastR]);
             } else {
                 break;
             }
         }
-        lastC += (timeChanges[i][0][0] - lastTime) * procentCalculatCost * costCoeficient;
-        dataCost2.push([timeChanges[i][0][0], lastC]);
+        //modificare aici: calculare norma, impartire la timp, impartire la norma
+
+        lastC += (oldTime - lastTime) * procentCalculatCost * costCoeficient / (timpStabilit * norma);
+        dataCost2.push([oldTime - interval, lastC]);
         lastTime = timeChanges[i][0][0];
         initialTime = timeChanges[i][0][0] + interval;
         changeReferences(i, 0);
+        norma = normare();
         procentCalculat = computeCoeficient();
         changeReferences(i, 1);
-        procentCalculatCost = computeCoeficient();
+        procentCalculatCost = computeCoeficient2();
         adder = lastR - lastTime * coeficientInitial * procentCalculat;
-
     }
 
     j = lastTime + interval;
@@ -262,14 +289,25 @@ function generateNewChartLog() {
     while (lastR < 100) {
         lastR = j * coeficientInitial * procentCalculat + adder;
         dataNew.push([j, lastR]);
+
         j += interval;
         ok1 = true;
+
     }
+    console.log("j");
+    console.log(j);
+
+
     if (ok1) {
-        lastC += (j - interval - lastTime) * procentCalculatCost * costCoeficient;
+        //modificare
+
+        lastC += (j - interval - lastTime) * procentCalculatCost * costCoeficient / (norma * timpStabilit);
+
         dataCost2.push([j - interval, lastC]);
+        
+
     }
-    chart(globalInputs[input - 1], globalOutputs[output - 1], data, dataNew);
+    chart(globalInputs[input - 1], "Timp", data, dataNew);
     chart1(globalInputs[input - 1], globalOutputs[output - 1], dataCost, dataCost2);
     return false;
 
@@ -277,6 +315,10 @@ function generateNewChartLog() {
 
 function computeCoeficient() {
     return computeNum();
+}
+
+function computeCoeficient2() {
+    return computeNum2();
 }
 
 function changeReferences(value, output) {
@@ -289,7 +331,20 @@ function changeReferences(value, output) {
 function computeNum() {
     var result = 0;
     parametersPercent.forEach(function (value, index) {
+
         result += parametersPercent[index] * globalReferences[index] / 100;
+    });
+    return result;
+}
+
+function computeNum2() {
+    var result = 0;
+    parametersPercent.forEach(function (value, index) {
+        //
+        result += (1 / (1 - parametersPercent[index] / 100)) * globalReferences[index];
+        //   console.log(parametersPercent[index]);
+        //  console.log(globalReferences[index]);
+        //  console.log(result);
     });
     return result;
 }
@@ -383,7 +438,7 @@ function chart(labelInput, labelOuptut, data1, data2) {
         },
         tooltip: true,
         tooltipOpts: {
-            content: globalOutputs[globalOutputVar] + ": %x<br /> Realizabilitate: %y",
+            content: "Timp:" + " %x<br /> Realizabilitate: %y",
             shifts: {
                 x: -60,
                 y: 25
@@ -427,7 +482,7 @@ function chart1(labelInput, labelOuptut, data, data1) {
                 }
             },
             points: {
-                show: true
+                show: false
             }
         },
         legend: {
@@ -437,7 +492,7 @@ function chart1(labelInput, labelOuptut, data, data1) {
             label: labelOuptut
         },
         yaxis: {
-            label: 'Realizabilitate'
+            label: 'Cost'
         },
         grid: {
             hoverable: true,
